@@ -11,6 +11,7 @@ Tyler<br>
 - clone the repository.
 - run 'npm install' to install dependencies.
 - run 'npm run app' to launch express server and react's dev. server.
+- create your own branch to work on. (do not work on the master)
 
 Bootstrap is included in the index.html.
 We can use any pure bootstrap tutorials to develop the front end instead of relying<br>
