@@ -30,19 +30,21 @@ class List extends Component {
         return (
             <div>
                 <h1>List of Items</h1>
-                {list.length ? (
-                    <div>
-                        {list.map((item, index) => {
-                            return (
-                                <div key={index}>{item}</div>
-                            )
-                        })}
-                    </div>
-                ) : (
-                    <div>
-                        <h2> No List Items Found</h2>
-                    </div>
-                )}
+                {list.length ? 
+                    (
+                        <div>
+                            {list.map((item, index) => {
+                                return (
+                                    <div key={`list-${index}`}>{item}</div>
+                                )})
+                            }
+                        </div>
+                    ) : (
+                        <div>
+                            <h2> No List Items Found</h2>
+                        </div>
+                    )
+                }
             </div>
         )
     }
