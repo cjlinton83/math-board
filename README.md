@@ -13,6 +13,3 @@ Tyler<br>
 - run 'npm run app' to launch express server and react's dev. server.
 - create your own branch to work on. (do not work on the master)
 
-Bootstrap is included in the index.html.
-We can use any pure bootstrap tutorials to develop the front end instead of relying<br>
-on react specific bootstrap packages (i.e. reactstrap)

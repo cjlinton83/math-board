@@ -2,8 +2,8 @@ import React from 'react'
 
 const Main = props => {
     return (
-        <main role="main" className="flex-shrink-0">
-            <div className="container mt-5" style={{padding: '60px 15px 0'}}>
+        <main role="main">
+            <div>
                 {props.content}
             </div>
         </main>
