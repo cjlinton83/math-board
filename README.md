@@ -11,5 +11,5 @@ Tyler<br>
 - clone the repository.
 - run 'npm install' to install dependencies.
 - run 'npm run app' to launch express server and react's dev. server.
-- create your own branch to work on. (do not work on the master)
+- create your own branch to work on.
 
