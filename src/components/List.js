@@ -36,8 +36,8 @@ class List extends Component {
                             {list.map((item, index) => {
                                 return (
                                     <div key={`list-${index}`}>{item}</div>
-                                )})
-                            }
+                                )
+                            })}
                         </div>
                     ) : (
                         <div>
