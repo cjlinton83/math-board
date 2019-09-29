@@ -5,7 +5,6 @@ import {
   Header,
   Grid,
   Image,
-  Button,
 } from 'semantic-ui-react'
 
 const Home = props => {
