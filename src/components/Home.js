@@ -5,6 +5,7 @@ import {
   Header,
   Grid,
   Image,
+  Button,
 } from 'semantic-ui-react'
 
 const Home = props => {
@@ -24,12 +25,17 @@ const Home = props => {
               <Header as='h3' style={{ fontSize: '2em' }}>
                 Login or Sign Up Today!
               </Header>
-              <p style={{ fontSize: '1.33em', marginBottom: '2em' }}>
+              <p style={{ fontSize: '1.33em' }}>
                 Your collaborative whiteboard session is just a few clicks away.
               </p>
             </Grid.Column>
             <Grid.Column floated='right' width={6}>
-              <Image rounded size='large' src='home_image.jpg' centered />
+              <Image 
+                rounded
+                size='large'
+                src='home_image.jpg'
+                style={{ margin: '2em auto' }}
+              />
             </Grid.Column>
           </Grid.Row>
         </Grid>

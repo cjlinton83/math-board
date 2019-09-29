@@ -7,6 +7,9 @@ import {
   Button
 } from 'semantic-ui-react'
 
+import Login from './Login'
+import Signup from './Signup'
+
 const HeaderMenu = props => {
   const LoggedIn = () => (
     <Menu.Item position='right'>
@@ -16,12 +19,20 @@ const HeaderMenu = props => {
 
   const LoggedOut = () => (
     <Menu.Item position='right'>
-      <Button inverted>
-        Log in
-      </Button>
-      <Button inverted style={{ marginLeft: '0.5em'}}>
-        Sign up
-      </Button>
+      <Login
+        trigger={
+          <Button inverted>
+            Log in
+          </Button>
+        }
+      />
+      <Signup
+        trigger={
+          <Button inverted style={{ marginLeft: '0.5em'}}>
+            Sign up
+          </Button>
+        }
+      />
     </Menu.Item>
   )
 
