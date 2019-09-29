@@ -1,15 +1,15 @@
 import React from 'react'
 
-import Header from './Header'
+import HeaderMenu from './HeaderMenu'
 import Main from './Main'
 
 const Layout = props => {
-    return(
-        <div>
-            <Header />
-            <Main content={props.children}/>
-        </div>
-    )
+  return (
+    <div>
+      <HeaderMenu loggedIn={props.loggedIn} />
+      <Main content={props.children} />
+    </div>
+  )
 }
 
 export default Layout
