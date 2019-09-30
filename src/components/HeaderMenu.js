@@ -45,6 +45,11 @@ const HeaderMenu = props => {
             <Image size='mini' src='./logo.png' style={{ marginRight: '1.5em'}} />
             The Math Board Project
           </Menu.Item>
+
+          <Menu.Item as={Link} to='/calendar'>
+            <Button inverted>Calendar</Button>
+          </Menu.Item>
+
           {props.loggedIn ? <LoggedIn /> : <LoggedOut />}
         </Container>
       </Menu>
