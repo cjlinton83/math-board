@@ -4,6 +4,8 @@ import { Route, Switch, Redirect } from 'react-router-dom'
 import Home from './components/Home'
 import Layout from './components/Layout'
 import Calendar from './components/Calendar'
+import LogIn from './components/LogIn'
+import SignUp from './components/SignUp'
 
 const App = () => {
   let loggedIn = false
@@ -13,6 +15,8 @@ const App = () => {
       <Switch>
         <Route exact path='/' component={Home} />
         <Route path='/calendar' component={Calendar} />
+        <Route path='/login' component={LogIn} />
+        <Route path='/signup' component={SignUp} />
         <Redirect to="/" />
       </Switch>
     </Layout>
