@@ -8,22 +8,59 @@ import {
   Button,
   Message
 } from 'semantic-ui-react'
+import Validate from 'validate.js'
+
+const validationConstraints = {
+  email: {
+    presence: true,
+    email: true
+  },
+  password: {
+    presence: true,
+    length: {
+      minimum: 8,
+      message: 'must be at least 8 characters long'
+    }
+  }
+}
 
 const LogIn = props => {
+  const [emailValue, setEmailValue] = React.useState('')
+  const [passwordValue, setPasswordValue] = React.useState('')
+  const [validationErrors, setValidationErrors] = React.useState(null)
+
+  const handleSubmit = e => {
+    e.preventDefault()
+    const formValues = Validate.collectFormValues(e.target, {nullify: true, trim: true})
+    const errors = Validate(formValues, validationConstraints, { format: 'flat' })
+
+    if (errors) {
+      setValidationErrors(errors)
+    } else {
+      // Handle Login Here!
+      setValidationErrors(null)
+      setEmailValue('')
+      setPasswordValue('')
+    }
+  }
+
   return (
     <Grid textAlign='center' verticalAlign='middle' style={{ height: '100vh' }}>
       <Grid.Column style={{ maxWidth: 450 }}>
         <Header as='h2' textAlign='center'>
           Log in to your account
         </Header>
-        <Form size='large'>
-          <Segment stacked>
+        
+        <Segment stacked>
+          <Form size='large' onSubmit={handleSubmit}>
             <Form.Input
               fluid
               icon='user'
               iconPosition='left'
               placeholder='E-mail address'
-              type='email'
+              name='email'
+              value={emailValue}
+              onChange={e => setEmailValue(e.target.value.toLowerCase())}
             />
             <Form.Input
               fluid
@@ -31,11 +68,35 @@ const LogIn = props => {
               iconPosition='left'
               placeholder='Password'
               type='password'
+              name='password'
+              value={passwordValue}
+              onChange={e => setPasswordValue(e.target.value)}
             />
 
-            <Button primary fluid size='large'>Log In</Button>
-          </Segment>
-        </Form>
+            <Button 
+              disabled={!(emailValue && passwordValue)}
+              primary 
+              fluid
+              size='large'
+            >
+              Log In
+            </Button>
+          </Form>
+        </Segment>
+
+        { validationErrors
+          ? (
+              <Message error>
+                {validationErrors.map((error, i) => {
+                  return (
+                    <p key={`validationError${i}`}>{error}</p>
+                  )
+                })}
+              </Message>
+            )
+          : null
+        }
+        
         <Message>
           New user? <Link to='/signup'>Sign Up.</Link>
         </Message>

@@ -10,14 +10,42 @@ import {
 } from 'semantic-ui-react'
 
 const SignUp = props => {
+  const [value, setValue] = React.useState('')
+
   return (
     <Grid textAlign='center' verticalAlign='middle' style={{ height: '100vh' }}>
-      <Grid.Column style={{ maxWidth: 450 }}>
+      <Grid.Column style={{ maxWidth: 550 }}>
         <Header as='h2' textAlign='center'>
-          Sign up for a new account
+          Create a new account
         </Header>
-        <Form size='large'>
-          <Segment stacked>
+        <Segment stacked>
+          <Form size='large'>
+            <Form.Input
+              fluid
+              placeholder='First name'
+            />
+            <Form.Input
+              fluid
+              placeholder='Last name'
+            />
+
+            <Form.Group inline unstackable>
+              <Form.Radio
+                label='Instructor'
+                name='radioGroup'
+                value='instructor'
+                checked={value === 'instructor'}
+                onChange={() => setValue('instructor')}
+              />
+              <Form.Radio
+                label='Student'
+                name='radioGroup'
+                value='student'
+                checked={value === 'student'}
+                onChange={() => setValue('student')}
+              />
+            </Form.Group>
+
             <Form.Input
               fluid
               icon='user'
@@ -32,10 +60,16 @@ const SignUp = props => {
               placeholder='Password'
               type='password'
             />
-
+            <Form.Input
+              fluid
+              icon='lock'
+              iconPosition='left'
+              placeholder='Confirm Password'
+              type='password'
+            />
             <Button primary fluid size='large'>Sign up</Button>
-          </Segment>
-        </Form>
+          </Form>
+        </Segment>
         <Message>
           Already have an account? <Link to='/login'>Log In.</Link>
         </Message>
