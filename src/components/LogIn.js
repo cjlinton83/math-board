@@ -32,12 +32,13 @@ const LogIn = props => {
   const handleSubmit = e => {
     e.preventDefault()
     const formValues = Validate.collectFormValues(e.target, {nullify: true, trim: true})
-    const errors = Validate(formValues, validationConstraints, { format: 'flat' })
+    const errors = Validate(formValues, validationConstraints, {format: 'flat'})
 
     if (errors) {
       setValidationErrors(errors)
     } else {
       // Handle Login Here!
+      console.log(emailValue, passwordValue)
       setValidationErrors(null)
       setEmailValue('')
       setPasswordValue('')
@@ -52,7 +53,7 @@ const LogIn = props => {
         </Header>
         
         <Segment stacked>
-          <Form size='large' onSubmit={handleSubmit}>
+          <Form size='large' onSubmit={handleSubmit} >
             <Form.Input
               fluid
               icon='user'
@@ -61,6 +62,7 @@ const LogIn = props => {
               name='email'
               value={emailValue}
               onChange={e => setEmailValue(e.target.value.toLowerCase())}
+              tabIndex={1}
             />
             <Form.Input
               fluid
@@ -71,6 +73,7 @@ const LogIn = props => {
               name='password'
               value={passwordValue}
               onChange={e => setPasswordValue(e.target.value)}
+              tabIndex={2}
             />
 
             <Button 
@@ -78,21 +81,20 @@ const LogIn = props => {
               primary 
               fluid
               size='large'
+              tabIndex={3}
             >
               Log In
             </Button>
           </Form>
         </Segment>
 
-        { validationErrors
+        {validationErrors
           ? (
-              <Message error>
-                {validationErrors.map((error, i) => {
-                  return (
-                    <p key={`validationError${i}`}>{error}</p>
-                  )
-                })}
-              </Message>
+              <Message 
+                error
+                header='Ooops, check your input!'
+                list={validationErrors}
+              />
             )
           : null
         }
