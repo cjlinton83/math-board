@@ -38,7 +38,10 @@ const LogIn = props => {
       setValidationErrors(errors)
     } else {
       // Handle Login Here!
-      console.log(emailValue, passwordValue)
+      // probably pass all string values other than 
+      // password with a call toLowerCase() when sending to API.
+      console.log(emailValue.toLowerCase(), passwordValue)
+
       setValidationErrors(null)
       setEmailValue('')
       setPasswordValue('')
@@ -61,7 +64,7 @@ const LogIn = props => {
               placeholder='E-mail address'
               name='email'
               value={emailValue}
-              onChange={e => setEmailValue(e.target.value.toLowerCase())}
+              onChange={e => setEmailValue(e.target.value)}
               tabIndex={1}
             />
             <Form.Input
@@ -77,7 +80,6 @@ const LogIn = props => {
             />
 
             <Button 
-              disabled={!(emailValue && passwordValue)}
               primary 
               fluid
               size='large'
