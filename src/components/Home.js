@@ -7,7 +7,7 @@ import {
 
 const Home = props => {
   return (
-    <Grid container verticalAlign='middle' style={{ height: '100vh'}}>
+    <Grid container verticalAlign='middle' style={{ marginTop: '8em' }}>
       <Grid.Row>
         <Grid.Column width={8}>
           <Header as='h3' style={{ fontSize: '2em' }}>

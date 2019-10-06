@@ -1,5 +1,4 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import {
   Grid,
   Header,
@@ -14,19 +13,11 @@ const validationConstraints = {
   email: {
     presence: true,
     email: true
-  },
-  password: {
-    presence: true,
-    length: {
-      minimum: 8,
-      message: 'must be at least 8 characters long'
-    }
   }
 }
 
-const LogIn = props => {
+const Recover = props => {
   const [emailValue, setEmailValue] = React.useState('')
-  const [passwordValue, setPasswordValue] = React.useState('')
   const [validationErrors, setValidationErrors] = React.useState(null)
 
   const handleSubmit = e => {
@@ -37,14 +28,10 @@ const LogIn = props => {
     if (errors) {
       setValidationErrors(errors)
     } else {
-      // Handle Login Here!
-      // probably pass all string values other than 
-      // password with a call toLowerCase() when sending to API.
-      console.log(emailValue.toLowerCase(), passwordValue)
-
+      // Handle Recovery here!
+      console.log(formValues)
       setValidationErrors(null)
       setEmailValue('')
-      setPasswordValue('')
     }
   }
 
@@ -52,7 +39,7 @@ const LogIn = props => {
     <Grid textAlign='center' verticalAlign='middle' style={{ marginTop: '8em' }}>
       <Grid.Column style={{ maxWidth: 450 }}>
         <Header as='h2' textAlign='center'>
-          Log in to your account
+          Recover your account
         </Header>
         
         <Segment stacked>
@@ -67,28 +54,15 @@ const LogIn = props => {
               onChange={e => setEmailValue(e.target.value)}
               tabIndex={1}
             />
-            <Form.Input
-              fluid
-              icon='lock'
-              iconPosition='left'
-              placeholder='Password'
-              type='password'
-              name='password'
-              value={passwordValue}
-              onChange={e => setPasswordValue(e.target.value)}
-              tabIndex={2}
-            />
 
             <Button 
               primary 
               fluid
               size='large'
-              tabIndex={3}
-              style={{ marginBottom: '0.5em' }}
+              tabIndex={2}
             >
-              Log In
+              Send Recovery E-mail
             </Button>
-            <Link to='/recover'>Forgot Password</Link>
           </Form>
         </Segment>
 
@@ -102,13 +76,16 @@ const LogIn = props => {
             )
           : null
         }
-        
-        <Message>
-          New user? <Link to='/signup'>Sign Up.</Link>
-        </Message>
+
+        <Message
+          header='Forgot your password?'
+          list={[
+            'You will recieve and E-mail with instructions to change your password.'
+          ]}
+        />
       </Grid.Column>
     </Grid>
   )
 }
 
-export default LogIn
+export default Recover

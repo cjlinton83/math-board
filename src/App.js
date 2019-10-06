@@ -6,6 +6,7 @@ import Layout from './components/Layout'
 import Calendar from './components/Calendar'
 import LogIn from './components/LogIn'
 import SignUp from './components/SignUp'
+import Recover from './components/Recover'
 
 const App = () => {
   let loggedIn = false
@@ -17,6 +18,7 @@ const App = () => {
         <Route path='/calendar' component={Calendar} />
         <Route path='/login' component={LogIn} />
         <Route path='/signup' component={SignUp} />
+        <Route path='/recover' component={Recover} />
         <Redirect to="/" />
       </Switch>
     </Layout>

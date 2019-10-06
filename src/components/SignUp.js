@@ -68,7 +68,7 @@ const SignUp = props => {
 
   return (
     <Grid textAlign='center' verticalAlign='middle' 
-      style={{ height: '100vh', margin: '2em auto'}}>
+      style={{ marginTop: '8em' }}>
       <Grid.Column style={{ maxWidth: 550 }}>
         <Header as='h2' textAlign='center'>
           Create a new account
@@ -79,16 +79,16 @@ const SignUp = props => {
               fluid
               placeholder='First name'
               name='firstName'
-              value={lastName}
-              onChange={e => setlastName(e.target.value)}
+              value={firstName}
+              onChange={e => setFirstName(e.target.value)}
               tabIndex={1}
             />
             <Form.Input
               fluid
               placeholder='Last name'
               name='lastName'
-              value={firstName}
-              onChange={e => setFirstName(e.target.value)}
+              value={lastName}
+              onChange={e => setlastName(e.target.value)}
               tabIndex={2}
             />
 
