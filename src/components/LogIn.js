@@ -38,10 +38,6 @@ const LogIn = props => {
       setValidationErrors(errors)
     } else {
       // Handle Login Here!
-      // probably pass all string values other than 
-      // password with a call toLowerCase() when sending to API.
-      console.log(emailValue.toLowerCase(), passwordValue)
-
       setValidationErrors(null)
       setEmailValue('')
       setPasswordValue('')

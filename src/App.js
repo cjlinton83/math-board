@@ -9,18 +9,24 @@ import SignUp from './components/SignUp'
 import Recover from './components/Recover'
 
 const App = () => {
-  let loggedIn = false
+  const [loggedIn, setLoggedIn] = React.useState(false);
 
   return (
     <Layout loggedIn={loggedIn}>
-      <Switch>
-        <Route exact path='/' component={Home} />
-        <Route path='/calendar' component={Calendar} />
-        <Route path='/login' component={LogIn} />
-        <Route path='/signup' component={SignUp} />
-        <Route path='/recover' component={Recover} />
-        <Redirect to="/" />
-      </Switch>
+      {loggedIn ?
+        <Switch>
+          <Route exact path='/' component={Home} />
+          <Route path='/calendar' component={Calendar} />
+          <Redirect to='/' />
+        </Switch> :
+        <Switch>
+          <Route exact path='/' component={Home} />
+          <Route path='/login' component={LogIn} />
+          <Route path='/signup' component={SignUp} />
+          <Route path='/recover' component={Recover} />
+          <Redirect to="/" />
+        </Switch>
+      }
     </Layout>
   )
 }
