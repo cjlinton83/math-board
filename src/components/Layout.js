@@ -6,7 +6,7 @@ import Main from './Main'
 const Layout = props => {
   return (
     <div>
-      <HeaderMenu loggedIn={props.loggedIn} />
+      <HeaderMenu loggedIn={props.loggedIn} setLoggedIn={props.setLoggedIn} />
       <Main content={props.children} />
     </div>
   )

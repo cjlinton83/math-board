@@ -10,7 +10,7 @@ import {
 const HeaderMenu = props => {
   const LoggedIn = () => (
     <Menu.Item position='right'>
-      <Button inverted>Account (dropdown)</Button>
+      <Button inverted onClick={() => props.setLoggedIn(false)}>Sign Out</Button>
     </Menu.Item>
   )
 

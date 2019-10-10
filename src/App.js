@@ -11,8 +11,13 @@ import Recover from './components/Recover'
 const App = () => {
   const [loggedIn, setLoggedIn] = React.useState(false);
 
+  const LogInProps = () => (
+    <LogIn setLoggedIn={setLoggedIn}/>
+  )
+  
+
   return (
-    <Layout loggedIn={loggedIn}>
+    <Layout loggedIn={loggedIn} setLoggedIn={setLoggedIn}>
       {loggedIn ?
         <Switch>
           <Route exact path='/' component={Home} />
@@ -21,7 +26,7 @@ const App = () => {
         </Switch> :
         <Switch>
           <Route exact path='/' component={Home} />
-          <Route path='/login' component={LogIn} />
+          <Route path='/login' component={LogInProps} />
           <Route path='/signup' component={SignUp} />
           <Route path='/recover' component={Recover} />
           <Redirect to="/" />
