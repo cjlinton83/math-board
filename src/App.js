@@ -1,38 +1,50 @@
 import React from 'react'
-import { Route, Switch, Redirect } from 'react-router-dom'
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
+import { Provider } from 'react-redux'
 
+import Navbar from './components/Navbar'
 import Home from './components/Home'
-import Layout from './components/Layout'
 import Calendar from './components/Calendar'
 import LogIn from './components/LogIn'
 import SignUp from './components/SignUp'
 import Recover from './components/Recover'
 
-const App = () => {
-  const [loggedIn, setLoggedIn] = React.useState(false);
+import store from './store'
 
-  const LogInProps = () => (
-    <LogIn setLoggedIn={setLoggedIn}/>
-  )
+const App = () => {
+  const [auth, setAuth] = React.useState(false);
   
+  const UserRoutes = (props) => {
+    return (
+      <React.Fragment>
+        <Route exact path='/' component={Home} />
+        <Route path='/calendar' component={Calendar} />
+        <Redirect to='/' />
+      </React.Fragment>      
+    )
+  }
+
+  const GuestRoutes = (props) => {
+    return (
+      <React.Fragment>
+        <Route exact path='/' component={Home} />
+        <Route path='/login' component={() => <LogIn setAuth={setAuth} />} />
+        <Route path='/signup' component={SignUp} />
+        <Route path='/recover' component={Recover} />
+        <Redirect to="/" />
+      </React.Fragment>
+    )
+  }
 
   return (
-    <Layout loggedIn={loggedIn} setLoggedIn={setLoggedIn}>
-      {loggedIn ?
+    <Provider store={store}>
+      <BrowserRouter>
+        <Navbar auth={auth} setAuth={setAuth} />
         <Switch>
-          <Route exact path='/' component={Home} />
-          <Route path='/calendar' component={Calendar} />
-          <Redirect to='/' />
-        </Switch> :
-        <Switch>
-          <Route exact path='/' component={Home} />
-          <Route path='/login' component={LogInProps} />
-          <Route path='/signup' component={SignUp} />
-          <Route path='/recover' component={Recover} />
-          <Redirect to="/" />
+          { auth ? <UserRoutes /> : <GuestRoutes /> }
         </Switch>
-      }
-    </Layout>
+      </BrowserRouter>
+    </Provider>
   )
 }
 

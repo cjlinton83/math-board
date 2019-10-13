@@ -38,7 +38,7 @@ const LogIn = props => {
       setValidationErrors(errors)
     } else {
       // Handle Login Here!
-      props.setLoggedIn(true)
+      props.setAuth(true)
       setValidationErrors(null)
       setEmailValue('')
       setPasswordValue('')

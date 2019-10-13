@@ -7,10 +7,10 @@ import {
   Button
 } from 'semantic-ui-react'
 
-const HeaderMenu = props => {
+const Navbar = props => {
   const LoggedIn = () => (
     <Menu.Item position='right'>
-      <Button inverted onClick={() => props.setLoggedIn(false)}>Sign Out</Button>
+      <Button inverted onClick={() => props.setAuth(false)}>Sign Out</Button>
     </Menu.Item>
   )
 
@@ -41,11 +41,11 @@ const HeaderMenu = props => {
             <Button inverted>Calendar</Button>
           </Menu.Item>
 
-          {props.loggedIn ? <LoggedIn /> : <LoggedOut />}
+          {props.auth ? <LoggedIn /> : <LoggedOut />}
         </Container>
       </Menu>
     </nav>
   )
 }
 
-export default HeaderMenu
+export default Navbar

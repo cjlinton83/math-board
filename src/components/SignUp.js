@@ -1,5 +1,8 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import isEmpty from 'is-empty'
 import {
   Grid,
   Header,
@@ -8,62 +11,34 @@ import {
   Button,
   Message
 } from 'semantic-ui-react'
-import Validate from 'validate.js'
 
-const validationConstraints = {
-  firstName: {
-    presence: true
-  },
-  lastName: {
-    presence: true
-  },
-  role: {
-    presence: { message: 'must be selected (Instructor or Student)' }
-  },
-  email: {
-    presence: true,
-    email: true
-  },
-  password: {
-    presence: true,
-    length: {
-      minimum: 8,
-      message: 'must be at least 8 characters long'
-    }
-  },
-  confirmPassword: {
-    presence: true,
-    equality: { attribute: 'password', message: 'must match Password'}
-  }
-}
-
+import { registerUser } from '../actions/authActions'
 
 const SignUp = props => {
-  const [firstName, setFirstName] = React.useState('')
-  const [lastName, setlastName] = React.useState('')
+  const [name, setName] = React.useState('')
   const [role, setRole] = React.useState('')
-  const [emailValue, setEmailValue] = React.useState('')
-  const [passwordValue, setPasswordValue] = React.useState('')
-  const [confirmPasswordValue, setConfirmPasswordValue] = React.useState('')
-  const [validationErrors, setValidationErrors] = React.useState(null)
+  const [email, setEmail] = React.useState('')
+  const [password, setPassword] = React.useState('')
+  const [confirm, setConfirm] = React.useState('')
+  const [errors, setErrors] = React.useState(null)
+
+  React.useEffect(() => {
+    if (props.errors) {
+      setErrors(props.errors)
+    }
+  }, [props.errors])
 
   const handleSubmit = e => {
     e.preventDefault()
-    const formValues = Validate.collectFormValues(e.target, {nullify: true, trim: true})
-    const errors = Validate(formValues, validationConstraints, {format: 'flat'})
-
-    if (errors) {
-      setValidationErrors(errors)
-    } else {
-      // Create Account here API call.
-      setValidationErrors(null)
-      setFirstName('')
-      setlastName('')
-      setRole('')
-      setEmailValue('')
-      setPasswordValue('')
-      setConfirmPasswordValue('')      
+    const newUser = {
+      name,
+      role,
+      email,
+      password,
+      confirm
     }
+    props.registerUser(newUser, props.history)
+    setErrors(null)
   }
 
   return (
@@ -77,19 +52,11 @@ const SignUp = props => {
           <Form size='large' onSubmit={handleSubmit}>
             <Form.Input
               fluid
-              placeholder='First name'
-              name='firstName'
-              value={firstName}
-              onChange={e => setFirstName(e.target.value)}
+              placeholder='Name'
+              name='name'
+              value={name}
+              onChange={e => setName(e.target.value)}
               tabIndex={1}
-            />
-            <Form.Input
-              fluid
-              placeholder='Last name'
-              name='lastName'
-              value={lastName}
-              onChange={e => setlastName(e.target.value)}
-              tabIndex={2}
             />
 
             <Form.Group inline unstackable>
@@ -99,7 +66,7 @@ const SignUp = props => {
                 value='instructor'
                 checked={role === 'instructor'}
                 onChange={() => setRole('instructor')}
-                tabIndex={3}
+                tabIndex={2}
               />
               <Form.Radio
                 label='Student'
@@ -107,7 +74,7 @@ const SignUp = props => {
                 value='student'
                 checked={role === 'student'}
                 onChange={() => setRole('student')}
-                tabIndex={4}
+                tabIndex={3}
               />
             </Form.Group>
 
@@ -117,9 +84,9 @@ const SignUp = props => {
               iconPosition='left'
               placeholder='E-mail address'
               name='email'
-              value={emailValue}
-              onChange={e => setEmailValue(e.target.value)}
-              tabIndex={5}
+              value={email}
+              onChange={e => setEmail(e.target.value)}
+              tabIndex={4}
             />
             <Form.Input
               fluid
@@ -128,9 +95,9 @@ const SignUp = props => {
               placeholder='Password'
               type='password'
               name='password'
-              value={passwordValue}
-              onChange={e => setPasswordValue(e.target.value)}
-              tabIndex={6}
+              value={password}
+              onChange={e => setPassword(e.target.value)}
+              tabIndex={5}
             />
             <Form.Input
               fluid
@@ -138,31 +105,31 @@ const SignUp = props => {
               iconPosition='left'
               placeholder='Confirm Password'
               type='password'
-              name='confirmPassword'
-              value={confirmPasswordValue}
-              onChange={e => setConfirmPasswordValue(e.target.value)}
-              tabIndex={7}
+              name='confirm'
+              value={confirm}
+              onChange={e => setConfirm(e.target.value)}
+              tabIndex={6}
             />
             <Button
               primary
               fluid
               size='large'
-              tabIndex={8}
+              tabIndex={7}
             >
               Sign up
             </Button>
           </Form>
         </Segment>
 
-        {validationErrors
-          ? (
-              <Message 
+        {
+          !isEmpty(errors) ?
+            (
+              <Message
                 error
-                header='Ooops, check your input!'
-                list={validationErrors}
+                list={Object.values(errors)}
               />
-            )
-          : null
+            ) 
+            : null
         }
 
         <Message>
@@ -173,4 +140,18 @@ const SignUp = props => {
   )
 }
 
-export default SignUp
+SignUp.propTypes = {
+  registerUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired
+}
+
+const mapStateToProps = state => ({
+  auth: state.auth,
+  errors: state.errors
+})
+
+export default connect(
+  mapStateToProps,
+  { registerUser }
+)(withRouter(SignUp))
