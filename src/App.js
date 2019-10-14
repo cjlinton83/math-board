@@ -28,31 +28,25 @@ if (localStorage.jwtToken) {
 }
 
 const App = (props) => {  
-  const UserRoutes = () => {
-    return (
-      <React.Fragment>
-        <Route exact path='/' component={Dashboard} />
-        <Redirect to='/' />
-      </React.Fragment>      
-    )
-  }
-
-  const GuestRoutes = () => {
-    return (
-      <React.Fragment>
-        <Route exact path='/' component={Landing} />
-        <Route path='/login' component={LogIn} />
-        <Route path='/signup' component={SignUp} />
-        <Redirect to="/" />
-      </React.Fragment>
-    )
-  }
-
   return (
     <BrowserRouter>
       <Navbar />
       <Switch>
-        { props.auth.isAuthenticated ? <UserRoutes /> : <GuestRoutes /> }
+        <Route exact path='/'>
+          {props.auth.isAuthenticated ? <Redirect to='/dashboard' /> : <Landing />}
+        </Route>
+        <Route path='/login'>
+          {props.auth.isAuthenticated ? <Redirect to='/dashboard' /> : <LogIn />}
+        </Route>
+        <Route path='/signup'>
+          {props.auth.isAuthenticated ? <Redirect to='/dashboard' /> : <SignUp />}
+        </Route>
+        <Route path='/dashboard'>
+          {props.auth.isAuthenticated ? <Dashboard /> : <Redirect to='/login' />}
+        </Route>
+        <Route path='*'>
+          <Redirect to='/' />
+        </Route>
       </Switch>
     </BrowserRouter>
   )
