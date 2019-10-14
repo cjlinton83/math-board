@@ -1,5 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import isEmpty from 'is-empty'
 import {
   Grid,
   Header,
@@ -8,41 +11,26 @@ import {
   Button,
   Message
 } from 'semantic-ui-react'
-import Validate from 'validate.js'
 
-const validationConstraints = {
-  email: {
-    presence: true,
-    email: true
-  },
-  password: {
-    presence: true,
-    length: {
-      minimum: 8,
-      message: 'must be at least 8 characters long'
+import { loginUser } from '../../actions/authActions'
+
+const LogIn = (props) => {
+  const [email, setEmail] = React.useState('')
+  const [password, setPassword] = React.useState('')
+
+  React.useEffect(() => {
+    if (props.auth.isAuthenticated) {
+      props.history.push('/dashboard')
     }
-  }
-}
-
-const LogIn = props => {
-  const [emailValue, setEmailValue] = React.useState('')
-  const [passwordValue, setPasswordValue] = React.useState('')
-  const [validationErrors, setValidationErrors] = React.useState(null)
+  }, [props.auth.isAuthenticated, props.history])
 
   const handleSubmit = e => {
     e.preventDefault()
-    const formValues = Validate.collectFormValues(e.target, {nullify: true, trim: true})
-    const errors = Validate(formValues, validationConstraints, {format: 'flat'})
-
-    if (errors) {
-      setValidationErrors(errors)
-    } else {
-      // Handle Login Here!
-      props.setAuth(true)
-      setValidationErrors(null)
-      setEmailValue('')
-      setPasswordValue('')
+    const userData = {
+      email,
+      password
     }
+    props.loginUser(userData)
   }
 
   return (
@@ -60,8 +48,8 @@ const LogIn = props => {
               iconPosition='left'
               placeholder='E-mail address'
               name='email'
-              value={emailValue}
-              onChange={e => setEmailValue(e.target.value)}
+              value={email}
+              onChange={e => setEmail(e.target.value)}
               tabIndex={1}
             />
             <Form.Input
@@ -71,8 +59,8 @@ const LogIn = props => {
               placeholder='Password'
               type='password'
               name='password'
-              value={passwordValue}
-              onChange={e => setPasswordValue(e.target.value)}
+              value={password}
+              onChange={e => setPassword(e.target.value)}
               tabIndex={2}
             />
 
@@ -85,27 +73,39 @@ const LogIn = props => {
             >
               Log In
             </Button>
-            <Link to='/recover'>Forgot Password</Link>
           </Form>
         </Segment>
 
-        {validationErrors
+        {!isEmpty(props.errors)
           ? (
               <Message 
                 error
-                header='Ooops, check your input!'
-                list={validationErrors}
+                list={Object.values(props.errors)}
               />
             )
           : null
         }
         
         <Message>
-          New user? <Link to='/signup'>Sign Up.</Link>
+          New user? <Link to='/signup'>Sign up.</Link>
         </Message>
       </Grid.Column>
     </Grid>
   )
 }
 
-export default LogIn
+LogIn.propTypes = {
+  loginUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired
+}
+
+const mapStateToProps = state => ({
+  auth: state.auth,
+  errors: state.errors
+})
+
+export default connect(
+  mapStateToProps,
+  { loginUser }
+)(LogIn)

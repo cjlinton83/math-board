@@ -1,5 +1,7 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 import {
   Container,
   Image,
@@ -7,10 +9,17 @@ import {
   Button
 } from 'semantic-ui-react'
 
-const Navbar = props => {
+import { logoutUser } from '../../actions/authActions'
+
+const Navbar = (props) => {
+  const handleSignOut = (e) => {
+    e.preventDefault()
+    props.logoutUser()
+  }
+
   const LoggedIn = () => (
     <Menu.Item position='right'>
-      <Button inverted onClick={() => props.setAuth(false)}>Sign Out</Button>
+      <Button inverted onClick={handleSignOut}>Sign Out</Button>
     </Menu.Item>
   )
 
@@ -32,20 +41,28 @@ const Navbar = props => {
     <nav>
       <Menu fixed='top' inverted>
         <Container fluid>
-          <Menu.Item as={Link} to='/home' header>
+          <Menu.Item as={Link} to='/' header>
             <Image size='mini' src='./logo.png' style={{ marginRight: '1.5em'}} />
             The Math Board Project
           </Menu.Item>
 
-          <Menu.Item as={Link} to='/calendar'>
-            <Button inverted>Calendar</Button>
-          </Menu.Item>
-
-          {props.auth ? <LoggedIn /> : <LoggedOut />}
+          {props.auth.isAuthenticated ? <LoggedIn /> : <LoggedOut />}
         </Container>
       </Menu>
     </nav>
   )
 }
 
-export default Navbar
+Navbar.propTypes = {
+  logoutUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+}
+
+const mapStateToProps = state => ({
+  auth: state.auth,
+})
+
+export default connect(
+  mapStateToProps,
+  { logoutUser }
+)(withRouter(Navbar))

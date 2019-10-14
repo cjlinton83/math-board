@@ -6,7 +6,7 @@ import { Container } from 'semantic-ui-react'
 import '@fullcalendar/core/main.css'
 import '@fullcalendar/daygrid/main.css'
 
-const Calendar = props => {
+const Calendar = (props) => {
     return (
         <Container  style={{marginTop: '8em'}}>
             <FullCalendar 

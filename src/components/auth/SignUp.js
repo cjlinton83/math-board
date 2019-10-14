@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link, withRouter } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import isEmpty from 'is-empty'
@@ -12,7 +12,7 @@ import {
   Message
 } from 'semantic-ui-react'
 
-import { registerUser } from '../actions/authActions'
+import { registerUser } from '../../actions/authActions'
 
 const SignUp = props => {
   const [name, setName] = React.useState('')
@@ -20,13 +20,6 @@ const SignUp = props => {
   const [email, setEmail] = React.useState('')
   const [password, setPassword] = React.useState('')
   const [confirm, setConfirm] = React.useState('')
-  const [errors, setErrors] = React.useState(null)
-
-  React.useEffect(() => {
-    if (props.errors) {
-      setErrors(props.errors)
-    }
-  }, [props.errors])
 
   const handleSubmit = e => {
     e.preventDefault()
@@ -38,7 +31,6 @@ const SignUp = props => {
       confirm
     }
     props.registerUser(newUser, props.history)
-    setErrors(null)
   }
 
   return (
@@ -121,15 +113,14 @@ const SignUp = props => {
           </Form>
         </Segment>
 
-        {
-          !isEmpty(errors) ?
-            (
-              <Message
+        {!isEmpty(props.errors)
+          ? (
+              <Message 
                 error
-                list={Object.values(errors)}
+                list={Object.values(props.errors)}
               />
-            ) 
-            : null
+            )
+          : null
         }
 
         <Message>
@@ -154,4 +145,4 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   { registerUser }
-)(withRouter(SignUp))
+)(SignUp)

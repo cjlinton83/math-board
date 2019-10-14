@@ -5,7 +5,7 @@ import {
   Image,
 } from 'semantic-ui-react'
 
-const Home = props => {
+const Landing = (props) => {
   return (
     <Grid container verticalAlign='middle' style={{ marginTop: '8em' }}>
       <Grid.Row>
@@ -36,4 +36,4 @@ const Home = props => {
   )
 }
 
-export default Home
+export default Landing
