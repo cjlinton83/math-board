@@ -11,6 +11,7 @@ import Landing from './components/layout/Landing'
 import Dashboard from './components/protected/Dashboard'
 import LogIn from './components/auth/LogIn'
 import SignUp from './components/auth/SignUp'
+import Whiteboard from './components/protected/Whiteboard'
 
 import store from './store'
 
@@ -43,6 +44,9 @@ const App = (props) => {
         </Route>
         <Route path='/dashboard'>
           {props.auth.isAuthenticated ? <Dashboard /> : <Redirect to='/login' />}
+        </Route>
+        <Route path='/session'>
+          {props.auth.isAuthenticated ? <Whiteboard /> : <Redirect to='/login' />}
         </Route>
         <Route path='*'>
           <Redirect to='/' />
