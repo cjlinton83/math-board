@@ -7,7 +7,7 @@ import {
   Button
 } from 'semantic-ui-react'
 
-import Chat from '../protected/Chat'
+import Chat from '../protected/chat/Chat'
 
 // const HEIGHT_OFFSET = 64
 
@@ -124,7 +124,7 @@ const Whiteboard = (props) => {
         width={width}
         height={height}
       /> */}
-      <Image src='./large_example.png' style={{ paddingTop: '4em', zIndex: '-100' }}/>
+      <Image src='./large_example.png' style={{ paddingTop: '4em', height: '700px', zIndex: '-100' }}/>
       <LowerButtonGroup />
     </div>
   )
