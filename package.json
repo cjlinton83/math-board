@@ -28,8 +28,8 @@
     "validator": "^11.1.0"
   },
   "scripts": {
-    "start": "node ./server/server.js",
-    "app": "node ./server/server.js | react-scripts start",
+    "start": "node server.js",
+    "app": "node server.js | react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 const path = require('path')
 const passport = require('passport')
-const users = require('./routes/api/users')
+const users = require('./server/routes/api/users')
 
 const app = express()
 
@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 // Database config
-const connection = require('./config/keys').MONGODB_URL
+const connection = require('./server/config/keys').MONGODB_URL
 mongoose.connect(connection, {
     useNewUrlParser: true,
     useUnifiedTopology: true
@@ -26,7 +26,7 @@ mongoose.connect(connection, {
 app.use(passport.initialize())
 
 // Passport config
-require('./config/passport')(passport)
+require('./server/config/passport')(passport)
 
 // Routes
 app.use('/api/users', users)
