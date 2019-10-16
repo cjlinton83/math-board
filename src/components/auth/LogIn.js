@@ -14,84 +14,105 @@ import {
 
 import { loginUser } from '../../actions/authActions'
 
-const LogIn = (props) => {
-  const [email, setEmail] = React.useState('')
-  const [password, setPassword] = React.useState('')
+class LogIn extends React.Component {
+  constructor(props) {
+    super(props)
 
-  React.useEffect(() => {
-    if (props.auth.isAuthenticated) {
-      props.history.push('/dashboard')
+    this.state = {
+      email: '',
+      password: '',
+      errors: {}
     }
-  }, [props.auth.isAuthenticated, props.history])
 
-  const handleSubmit = e => {
+    this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleChange = this.handleChange.bind(this)
+  }
+  
+  componentDidUpdate(prevProps) {
+    if (prevProps.errors !== this.props.errors) {
+      this.setState({ errors: this.props.errors })
+    }
+  }
+
+  handleSubmit(e) {
     e.preventDefault()
+    const { email, password } = this.state
+
     const userData = {
       email,
       password
     }
-    props.loginUser(userData)
+    this.props.loginUser(userData)
   }
 
-  return (
-    <Grid textAlign='center' verticalAlign='middle' style={{ marginTop: '8em' }}>
-      <Grid.Column style={{ maxWidth: 450 }}>
-        <Header as='h2' textAlign='center'>
-          Log in to your account
-        </Header>
-        
-        <Segment stacked>
-          <Form size='large' onSubmit={handleSubmit} >
-            <Form.Input
-              fluid
-              icon='user'
-              iconPosition='left'
-              placeholder='E-mail address'
-              name='email'
-              value={email}
-              onChange={e => setEmail(e.target.value)}
-              tabIndex={1}
-            />
-            <Form.Input
-              fluid
-              icon='lock'
-              iconPosition='left'
-              placeholder='Password'
-              type='password'
-              name='password'
-              value={password}
-              onChange={e => setPassword(e.target.value)}
-              tabIndex={2}
-            />
+  handleChange(e) {
+    this.setState({ [e.target.name]: e.target.value })
+  }
 
-            <Button 
-              primary 
-              fluid
-              size='large'
-              tabIndex={3}
-              style={{ marginBottom: '0.5em' }}
-            >
-              Log In
-            </Button>
-          </Form>
-        </Segment>
-
-        {!isEmpty(props.errors)
-          ? (
-              <Message 
-                error
-                list={Object.values(props.errors)}
+  render() {
+    const { email, password } = this.state
+    return (
+      <Grid textAlign='center' verticalAlign='middle' style={{ marginTop: '8em' }}>
+        <Grid.Column style={{ maxWidth: 450 }}>
+          <Header as='h2' textAlign='center'>
+            Log in to your account
+          </Header>
+          
+          <Segment stacked>
+            <Form size='large' onSubmit={this.handleSubmit} >
+              <Form.Input
+                fluid
+                icon='user'
+                iconPosition='left'
+                placeholder='E-mail address'
+                id='email'
+                name='email'
+                value={email}
+                onChange={this.handleChange}
+                tabIndex={1}
               />
-            )
-          : null
-        }
-        
-        <Message>
-          New user? <Link to='/signup'>Sign up.</Link>
-        </Message>
-      </Grid.Column>
-    </Grid>
-  )
+              <Form.Input
+                fluid
+                icon='lock'
+                iconPosition='left'
+                placeholder='Password'
+                type='password'
+                id='password'
+                name='password'
+                value={password}
+                onChange={this.handleChange}
+                tabIndex={2}
+              />
+
+              <Button 
+                primary 
+                fluid
+                size='large'
+                tabIndex={3}
+                style={{ marginBottom: '0.5em' }}
+              >
+                Log In
+              </Button>
+            </Form>
+          </Segment>
+
+          {!isEmpty(this.state.errors)
+            ? (
+                <Message 
+                  error
+                  list={Object.values(this.state.errors)}
+                />
+              )
+            : null
+          }
+          
+          <Message>
+            New user? <Link to='/signup'>Sign up.</Link>
+          </Message>
+        </Grid.Column>
+      </Grid>
+    )
+  }
 }
 
 LogIn.propTypes = {

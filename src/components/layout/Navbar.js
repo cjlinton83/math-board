@@ -15,6 +15,7 @@ const Navbar = (props) => {
   const handleSignOut = (e) => {
     e.preventDefault()
     props.logoutUser()
+    props.history.push('/')
   }
 
   const LoggedIn = () => (
