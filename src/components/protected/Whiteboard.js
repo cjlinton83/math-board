@@ -147,7 +147,7 @@ function Whiteboard() {
   
   return (
     <div className="whiteboard-page" style={{position: 'relative', top: '5em'}}>
-      <ButtonGroup vertical>
+      <ButtonGroup>
         <Button variant="secondary" onClick={drawLine}>
           Draw
         </Button>
