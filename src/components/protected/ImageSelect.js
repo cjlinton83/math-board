@@ -14,7 +14,7 @@ const Img = ({ shapeProps, isSelected, onSelect, onChange, imageUrl }) => {
   }, [isSelected]);
   return (
     <React.Fragment>
-      <Image
+      <ImageSelect
         onClick={onSelect}
         image={image}
         ref={shapeRef}
