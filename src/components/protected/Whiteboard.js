@@ -1,133 +1,263 @@
-import React from 'react'
+import React, { useState, useRef } from "react";
+import ButtonGroup from "react-bootstrap/ButtonGroup";
+//import Button from "react-bootstrap/Button";
+import "./Whiteboard.css";
+import { Stage, Layer } from "react-konva";
+import Rectangle from "./Rectangle";
+import Circle from "./Circle";
+import { addLine } from "./line";
+import { addTextNode } from "./textNode";
+import ImageSelect from "./ImageSelect";
 import {
   Icon,
-  Dropdown,
   Image,
-  Popup,
-  Button
+  Grid,
+  Divider,
+  Dropdown,
+  Segment,
+  Button,
+  Popup
 } from 'semantic-ui-react'
+import { relative } from "path";
 
-import Chat from '../protected/chat/Chat'
+import Chat from './chat/Chat'
 
-// const HEIGHT_OFFSET = 64
+const uuidv1 = require("uuid/v1");
 
-const Whiteboard = (props) => {
-  // const canvas = React.createRef()
-  // const [width, setWidth] = React.useState(window.innerWidth)
-  // const [height, setHeight] = React.useState(window.innerHeight - HEIGHT_OFFSET)
-  const [color, setColor] = React.useState('black')
-
-  // React.useEffect(() => {
-  //   function resizeEvent() {
-  //     setWidth(window.innerWidth)
-  //     setHeight(window.innerHeight - HEIGHT_OFFSET)
-  //   }
-
-  //   window.addEventListener('resize', resizeEvent)
-
-  //   return function cleanup() {
-  //     window.removeEventListener('resize', resizeEvent)
-  //   }
-  // })
-
-  const UpperButtonGroup = () => {
-    const penButton = (
-      <Icon
-        inverted
-        color={color}
-        circular
-        bordered
-        name='pencil alternate'
-        size='big'
-      />
-    )
-
-    const penOptions = [
-      { key: 'pen-black', text: 'black', label: { color: 'black', empty: true, circular: true } },
-      { key: 'pen-red', text: 'red', label: { color: 'red', empty: true, circular: true } },
-      { key: 'pen-green', text: 'green', label: { color: 'green', empty: true, circular: true } },
-      { key: 'pen-blue', text: 'blue', label: { color: 'blue', empty: true, circular: true } },
-    ]
-
-    return (
-      <div style={{ position: 'relative', top: '5em', float: 'right' }}>
-        <Dropdown trigger={penButton} icon={null}>
-          <Dropdown.Menu>
-            <Dropdown.Header>colors</Dropdown.Header>
-            {
-              penOptions.map((option) => (
-                <Dropdown.Item
-                  selected={color === option.key}
-                  key={option.key}
-                  onClick={setColor(option.key)}
-                  {...option}
-                />
-              ))
-            }
-          </Dropdown.Menu>
-        </Dropdown>
-        <Icon circular bordered name='eraser' size='big' />
-        <Icon circular bordered name='undo' size='big' />
-        <Icon circular bordered name='redo' size='big' />
-      </div>
-    )
-  }
-
-  const LowerButtonGroup = () => {
-    const HistoryPopUp = () => (
-      <Image.Group>
-        <Button compact icon='chevron left' />
-        <Image src='./example.png' bordered />
-        <Image src='./example.png' bordered />
-        <Image src='./example.png' bordered />
-        <Button compact icon='chevron right' />
-      </Image.Group>
-    )
-
-    return (
-      <div style={{ position: 'relative', bottom: '4em', float: 'right' }}>
-        <Popup
-          basic
-          flowing
-          on='click'
-          trigger={
-            <Button icon labelPosition='left' size='big'>
-              <Icon name='history' />
-              History
-            </Button>
-          }
-          children={<HistoryPopUp />}
-          style={{ height: '190px', width: '605px' }}
-        />
-        <Popup
-          basic
-          flowing
-          on='click'
-          trigger={
-            <Button icon labelPosition='left' size='big'>
-              <Icon name='comment alternate outline' />
-              Messages
-            </Button>
-          }
-          children={<Chat />}
-          style={{ width: '40em' }}
-        />
-      </div>
-    )
-  }
-
+function Whiteboard() {
+  const [rectangles, setRectangles] = useState([]);
+  const [circles, setCircles] = useState([]);
+  const [images, setImages] = useState([]);
+  const [selectedId, selectShape] = useState(null);
+  const [shapes, setShapes] = useState([]);
+  const [, updateState] = React.useState();
+  const stageEl = React.createRef();
+  const layerEl = React.createRef();
+  const fileUploadEl = React.createRef();
+  const getRandomInt = max => {
+    return Math.floor(Math.random() * Math.floor(max));
+  };
+  const addRectangle = () => {
+    const rect = {
+      x: getRandomInt(100),
+      y: getRandomInt(100),
+      width: 100,
+      height: 100,
+      fill: "black",
+      id: `rect${rectangles.length + 1}`,
+    };
+    const rects = rectangles.concat([rect]);
+    setRectangles(rects);
+    const shs = shapes.concat([`rect${rectangles.length + 1}`]);
+    setShapes(shs);
+  };
+  const addCircle = () => {
+    const circ = {
+      x: getRandomInt(100),
+      y: getRandomInt(100),
+      width: 100,
+      height: 100,
+      fill: "black",
+      id: `circ${circles.length + 1}`,
+    };
+    const circs = circles.concat([circ]);
+    setCircles(circs);
+    const shs = shapes.concat([`circ${circles.length + 1}`]);
+    setShapes(shs);
+  };
+  const drawLine = () => {
+    addLine(stageEl.current.getStage(), layerEl.current);
+  };
+  const eraseLine = () => {
+    addLine(stageEl.current.getStage(), layerEl.current, "erase");
+  };
+  const drawText = () => {
+    const id = addTextNode(stageEl.current.getStage(), layerEl.current);
+    const shs = shapes.concat([id]);
+    setShapes(shs);
+  };
+  const drawImage = () => {
+    fileUploadEl.current.click();
+  };
+  const forceUpdate = React.useCallback(() => updateState({}), []);
+  const fileChange = ev => {
+    let file = ev.target.files[0];
+    let reader = new FileReader();
+    reader.addEventListener(
+      "load",
+      () => {
+        const id = uuidv1();
+        images.push({
+          content: reader.result,
+          id,
+        });
+        setImages(images);
+        fileUploadEl.current.value = null;
+        shapes.push(id);
+        setShapes(shapes);
+        forceUpdate();
+      },
+      false
+    );
+    if (file) {
+      reader.readAsDataURL(file);
+    }
+  };
+  const undo = () => {
+    const lastId = shapes[shapes.length - 1];
+    let index = circles.findIndex(c => c.id == lastId);
+    if (index != -1) {
+      circles.splice(index, 1);
+      setCircles(circles);
+    }
+    index = rectangles.findIndex(r => r.id == lastId);
+    if (index != -1) {
+      rectangles.splice(index, 1);
+      setRectangles(rectangles);
+    }
+    index = images.findIndex(r => r.id == lastId);
+    if (index != -1) {
+      images.splice(index, 1);
+      setImages(images);
+    }
+    shapes.pop();
+    setShapes(shapes);
+    forceUpdate();
+  };
+  document.addEventListener("keydown", ev => {
+    if (ev.code == "Delete") {
+      let index = circles.findIndex(c => c.id == selectedId);
+      if (index != -1) {
+        circles.splice(index, 1);
+        setCircles(circles);
+      }
+      index = rectangles.findIndex(r => r.id == selectedId);
+      if (index != -1) {
+        rectangles.splice(index, 1);
+        setRectangles(rectangles);
+      }
+      index = images.findIndex(r => r.id == selectedId);
+      if (index != -1) {
+        images.splice(index, 1);
+        setImages(images);
+      }
+      forceUpdate();
+    }
+  });
+  
   return (
-    <div style={{ height: '100vh' }}>
-      <UpperButtonGroup />
-      {/* <canvas
-        ref={canvas}
-        width={width}
-        height={height}
-      /> */}
-      <Image src='./large_example.png' style={{ paddingTop: '4em', height: '700px', zIndex: '-100' }}/>
-      <LowerButtonGroup />
-    </div>
-  )
-}
+    <div className="whiteboard-page" style={{position: 'relative', top: '5em'}}>
+      <ButtonGroup vertical>
+        <Button variant="secondary" onClick={drawLine}>
+          Draw
+        </Button>
+        <Button variant="secondary" onClick={drawText} >
+          Text
+        </Button>
+        <Button variant="secondary" onClick={addRectangle}>
+          Rectangle
+        </Button>
+        <Button variant="secondary" onClick={addCircle}>
+          Circle
+        </Button>
+        <Button variant="secondary" onClick={drawImage} >
+          Image
+        </Button>
+        <Button variant="secondary" onClick={eraseLine}>
+          Erase
+        </Button>
+        <Button variant="secondary" onClick={undo} >
+          Undo
+        </Button>
+      </ButtonGroup>
 
-export default Whiteboard
+      <input
+        style={{ display: "none" }}
+        type="file"
+        ref={fileUploadEl}
+        onChange={fileChange}
+      />
+      <Stage
+        width={window.innerWidth * 0.9}
+        height={window.innerHeight - 150}
+        ref={stageEl}
+        onMouseDown={e => {
+          // deselect when clicked on empty area
+          const clickedOnEmpty = e.target === e.target.getStage();
+          if (clickedOnEmpty) {
+            selectShape(null);
+          }
+        }}
+      >
+        <Layer ref={layerEl}>
+          {rectangles.map((rect, i) => {
+            return (
+              <Rectangle
+                key={i}
+                shapeProps={rect}
+                isSelected={rect.id === selectedId}
+                onSelect={() => {
+                  selectShape(rect.id);
+                }}
+                onChange={newAttrs => {
+                  const rects = rectangles.slice();
+                  rects[i] = newAttrs;
+                  setRectangles(rects);
+                }}
+              />
+            );
+          })}
+          {circles.map((circle, i) => {
+            return (
+              <Circle
+                key={i}
+                shapeProps={circle}
+                isSelected={circle.id === selectedId}
+                onSelect={() => {
+                  selectShape(circle.id);
+                }}
+                onChange={newAttrs => {
+                  const circs = circles.slice();
+                  circs[i] = newAttrs;
+                  setCircles(circs);
+                }}
+              />
+            );
+          })}
+          {images.map((image, i) => {
+            return (
+              <ImageSelect
+                key={i}
+                imageUrl={image.content}
+                isSelected={image.id === selectedId}
+                onSelect={() => {
+                  selectShape(image.id);
+                }}
+                onChange={newAttrs => {
+                  const imgs = images.slice();
+                  imgs[i] = newAttrs;
+                }}
+              />
+            );
+          })}
+        </Layer>
+      </Stage>
+      <div style={{ position: relative, bottom: '4em', float: 'right' }}>
+        <Popup
+            basic
+            flowing
+            on='click'
+            trigger={
+              <Button icon labelPosition='left' size='big'>
+                <Icon name='comment alternate outline' />
+                Messages
+              </Button>
+            }
+            children={<Chat />}
+            style={{ width: '40em' }}
+        />
+      </div> 
+    </div>
+  );
+}
+export default Whiteboard;

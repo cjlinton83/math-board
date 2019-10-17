@@ -12,6 +12,7 @@ import Dashboard from './components/protected/Dashboard'
 import LogIn from './components/auth/LogIn'
 import SignUp from './components/auth/SignUp'
 import Whiteboard from './components/protected/Whiteboard'
+import Whiteboard_placeholder from './components/protected/Whiteboard_placeholder'
 
 import store from './store'
 
@@ -47,6 +48,9 @@ const App = (props) => {
         </Route>
         <Route path='/session'>
           {props.auth.isAuthenticated ? <Whiteboard /> : <Redirect to='/login' />}
+        </Route>
+        <Route path='/test'>
+          {props.auth.isAuthenticated ? <Whiteboard_placeholder /> : <Redirect to='/login' />}
         </Route>
         <Route path='*'>
           <Redirect to='/' />
