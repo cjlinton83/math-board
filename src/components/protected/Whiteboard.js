@@ -18,6 +18,10 @@ import {
   Button,
   Popup
 } from 'semantic-ui-react'
+import { relative } from "path";
+
+import Chat from './chat/Chat'
+
 const uuidv1 = require("uuid/v1");
 
 function Whiteboard() {
@@ -237,7 +241,22 @@ function Whiteboard() {
             );
           })}
         </Layer>
-      </Stage>   
+      </Stage>
+      <div style={{ position: relative, bottom: '4em', float: 'right' }}>
+        <Popup
+            basic
+            flowing
+            on='click'
+            trigger={
+              <Button icon labelPosition='left' size='big'>
+                <Icon name='comment alternate outline' />
+                Messages
+              </Button>
+            }
+            children={<Chat />}
+            style={{ width: '40em' }}
+        />
+      </div> 
     </div>
   );
 }
