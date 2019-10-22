@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import FullCalendar from "calendar";
 import { addHours, addDays, addWeeks, startOfWeek } from "date-fns";
-import { MDBContainer, MDBRow, MDBCol, MDBFooter } from "mdbreact";
+import { MDBContainer } from "mdbreact";
 
 // import '@fullcalendar/core/main.css'
 // import '@fullcalendar/daygrid/main.css'

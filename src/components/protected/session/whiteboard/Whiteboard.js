@@ -1,6 +1,5 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
-//import Button from "react-bootstrap/Button";
 import "./Whiteboard.css";
 import { Stage, Layer } from "react-konva";
 import Rectangle from "./Rectangle";
@@ -9,18 +8,8 @@ import { addLine } from "./line";
 import { addTextNode } from "./textNode";
 import ImageSelect from "./ImageSelect";
 import {
-  Icon,
-  Image,
-  Grid,
-  Divider,
-  Dropdown,
-  Segment,
   Button,
-  Popup
 } from 'semantic-ui-react'
-import { relative } from "path";
-
-import Chat from './chat/Chat'
 
 const uuidv1 = require("uuid/v1");
 
@@ -105,18 +94,18 @@ function Whiteboard() {
   };
   const undo = () => {
     const lastId = shapes[shapes.length - 1];
-    let index = circles.findIndex(c => c.id == lastId);
-    if (index != -1) {
+    let index = circles.findIndex(c => c.id === lastId);
+    if (index !== -1) {
       circles.splice(index, 1);
       setCircles(circles);
     }
-    index = rectangles.findIndex(r => r.id == lastId);
-    if (index != -1) {
+    index = rectangles.findIndex(r => r.id === lastId);
+    if (index !== -1) {
       rectangles.splice(index, 1);
       setRectangles(rectangles);
     }
-    index = images.findIndex(r => r.id == lastId);
-    if (index != -1) {
+    index = images.findIndex(r => r.id === lastId);
+    if (index !== -1) {
       images.splice(index, 1);
       setImages(images);
     }
@@ -125,19 +114,19 @@ function Whiteboard() {
     forceUpdate();
   };
   document.addEventListener("keydown", ev => {
-    if (ev.code == "Delete") {
-      let index = circles.findIndex(c => c.id == selectedId);
-      if (index != -1) {
+    if (ev.code === "Delete") {
+      let index = circles.findIndex(c => c.id === selectedId);
+      if (index !== -1) {
         circles.splice(index, 1);
         setCircles(circles);
       }
-      index = rectangles.findIndex(r => r.id == selectedId);
-      if (index != -1) {
+      index = rectangles.findIndex(r => r.id === selectedId);
+      if (index !== -1) {
         rectangles.splice(index, 1);
         setRectangles(rectangles);
       }
-      index = images.findIndex(r => r.id == selectedId);
-      if (index != -1) {
+      index = images.findIndex(r => r.id === selectedId);
+      if (index !== -1) {
         images.splice(index, 1);
         setImages(images);
       }
@@ -242,21 +231,6 @@ function Whiteboard() {
           })}
         </Layer>
       </Stage>
-      <div style={{ position: relative, bottom: '4em', float: 'right' }}>
-        <Popup
-            basic
-            flowing
-            on='click'
-            trigger={
-              <Button icon labelPosition='left' size='big'>
-                <Icon name='comment alternate outline' />
-                Messages
-              </Button>
-            }
-            children={<Chat />}
-            style={{ width: '40em' }}
-        />
-      </div> 
     </div>
   );
 }

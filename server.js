@@ -39,6 +39,18 @@ app.get('*', (req, res) => {
 
 // Listen for connections to server
 const port = process.env.PORT || 5000
-app.listen(port, () => {
+const server = app.listen(port, () => {
     console.log(`Server listening on port ${port}`)
+})
+
+// Socket connections
+const socket = require('socket.io')
+io = socket(server)
+
+io.on('connection', socket => {
+    console.log(socket.id)
+
+    socket.on('SEND_MESSAGE', data => {
+        io.emit('RECEIVE_MESSAGE', data)
+    })
 })

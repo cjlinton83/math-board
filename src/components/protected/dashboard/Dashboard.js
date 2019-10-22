@@ -6,7 +6,7 @@ import {
   Container, Divider, Button, Header
 } from 'semantic-ui-react'
 
-import Calendar from './Calendar'
+import Calendar from './calendar/Calendar'
 
 const Dashboard = (props) => {
   const userName = props.auth.user.name

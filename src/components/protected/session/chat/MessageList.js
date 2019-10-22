@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Segment, Comment } from 'semantic-ui-react'
-import uuidv4 from 'uuid/v4'
 
 class MessageList extends Component {
   constructor(props) {
@@ -48,12 +47,12 @@ class MessageList extends Component {
             ref={this.scrollDiv}
             style={{height: '10em', overflow: 'scroll', overflowX: 'hidden'}}
           >
-            {messages.map((message, _) => {
-              let senderName = message.sender.name
-              let messageContent = message.parts[0].payload.content
+            {messages.map((message, i) => {
+              let senderName = message.userName
+              let messageContent = message.text
 
               return (
-                <Comment key={uuidv4()} style={{margin: '0', padding: '0'}}>
+                <Comment key={`message_${i}`} style={{margin: '0', padding: '0'}}>
                   <Comment.Content>
                       <Comment.Author
                         as='span'
