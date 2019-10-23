@@ -53,4 +53,6 @@ io.on('connection', socket => {
     socket.on('SEND_MESSAGE', data => {
         io.emit('RECEIVE_MESSAGE', data)
     })
+
+    socket.on('disconnect', reason => console.log(reason))
 })

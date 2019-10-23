@@ -1,6 +1,4 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
 import io from 'socket.io-client'
 
 import Whiteboard from './whiteboard/Whiteboard'
@@ -10,7 +8,7 @@ export class Session extends Component {
   constructor(props) {
     super(props)
 
-    let userName = this.props.auth.user.name
+    let userName = this.props.userName
     if (userName.indexOf(' ') !== -1) {
       userName = userName.slice(0, userName.indexOf(' '))
     }
@@ -39,6 +37,10 @@ export class Session extends Component {
     }
   }
 
+  componentWillUnmount() {
+    this.socket.close()
+  }
+
   render() {
     return (
       <div>
@@ -52,14 +54,4 @@ export class Session extends Component {
   }
 }
 
-Session.propTypes = {
-  auth: PropTypes.object.isRequired,
-}
-
-const mapStateToProps = state => ({
-  auth: state.auth,
-})
-
-export default connect(
-  mapStateToProps
-)(Session)
+export default Session

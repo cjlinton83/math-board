@@ -46,7 +46,7 @@ const App = (props) => {
           {props.auth.isAuthenticated ? <Dashboard /> : <Redirect to='/login' />}
         </Route>
         <Route path='/session'>
-          {props.auth.isAuthenticated ? <Session /> : <Redirect to='/login' />}
+          {props.auth.isAuthenticated ? <Session userName={props.auth.user.name} /> : <Redirect to='/login' />}
         </Route>
         <Route path='*'>
           <Redirect to='/' />
