@@ -6,7 +6,7 @@ import {
   Container, Divider, Button, Header
 } from 'semantic-ui-react'
 
-import Calendar from './Calendar'
+import Calendar from './calendar/Calendar'
 
 const Dashboard = (props) => {
   const userName = props.auth.user.name
@@ -19,7 +19,7 @@ const Dashboard = (props) => {
       <Divider hidden />
       <Header as='h3'>Your Scheduled Sessions:</Header>
       <span>September 1, 2019 : 6:45 p.m. </span>
-      <Button as={Link} to='/session' primary large floated='right'>Go to Session</Button> 
+      <Button as={Link} to='/session' primary size='large' floated='right'>Go to Session</Button> 
     </Container>
   )
 }

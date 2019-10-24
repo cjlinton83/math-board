@@ -8,7 +8,7 @@ import {
 } from 'semantic-ui-react'
 
 
-import Chat from './chat/Chat'
+import Chat from '../../chat/Chat'
 
 // const HEIGHT_OFFSET = 64
 
