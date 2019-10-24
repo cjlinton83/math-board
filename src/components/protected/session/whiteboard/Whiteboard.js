@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import ButtonGroup from "react-bootstrap/ButtonGroup";
-import "./Whiteboard.css";
 import { Stage, Layer } from "react-konva";
 import Rectangle from "./Rectangle";
 import Circle from "./Circle";
@@ -8,7 +6,7 @@ import { addLine } from "./line";
 import { addTextNode } from "./textNode";
 import ImageSelect from "./ImageSelect";
 import {
-  Button,
+  Button, ButtonGroup
 } from 'semantic-ui-react'
 
 const uuidv1 = require("uuid/v1");
@@ -137,25 +135,25 @@ function Whiteboard() {
   return (
     <div className="whiteboard-page">
       <ButtonGroup style={{ left: '1em' }}>
-        <Button variant="secondary" onClick={drawLine}>
+        <Button onClick={drawLine}>
           Draw
         </Button>
-        <Button variant="secondary" onClick={drawText} >
+        <Button onClick={drawText} >
           Text
         </Button>
-        <Button variant="secondary" onClick={addRectangle}>
+        <Button onClick={addRectangle}>
           Rectangle
         </Button>
-        <Button variant="secondary" onClick={addCircle}>
+        <Button onClick={addCircle}>
           Circle
         </Button>
-        <Button variant="secondary" onClick={drawImage} >
+        <Button onClick={drawImage} >
           Image
         </Button>
-        <Button variant="secondary" onClick={eraseLine}>
+        <Button onClick={eraseLine}>
           Erase
         </Button>
-        <Button variant="secondary" onClick={undo} >
+        <Button onClick={undo} >
           Undo
         </Button>
       </ButtonGroup>

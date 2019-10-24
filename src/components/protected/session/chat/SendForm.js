@@ -29,7 +29,7 @@ class SendMessageForm extends Component {
         <Form.Input 
           type='text'
           autoFocus
-          name='messge'
+          name='message'
           placeholder='Type message then press Enter'
           value={this.state.message}
           onChange={this.handleChange}

@@ -13,22 +13,22 @@ export class Chat extends Component {
     return (
       <div style={{ position: 'relative', bottom: '1em', right: '1em', float: 'right' }}>
         <Popup
-            basic
-            flowing
-            on='click'
-            trigger={
-              <Button icon labelPosition='left' size='big'>
-                <Icon name='comment alternate outline' />
-                Messages
-              </Button>
-            }
-            children={
-              <div>
-                <MessageList messages={this.props.messages} />
-                <SendForm sendMessage={this.props.sendMessage} />
-              </div>
-            }
-            style={{ width: '40em' }}
+          basic
+          flowing
+          on='click'
+          trigger={
+            <Button icon labelPosition='left' size='big'>
+              <Icon name='comment alternate outline' />
+              Messages
+            </Button>
+          }
+          children={
+            <div>
+              <MessageList messages={this.props.messages} />
+              <SendForm sendMessage={this.props.sendMessage} />
+            </div>
+          }
+          style={{ width: '40em' }}
         />
       </div>
     )

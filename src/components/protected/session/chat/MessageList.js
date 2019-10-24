@@ -47,12 +47,12 @@ class MessageList extends Component {
             ref={this.scrollDiv}
             style={{height: '10em', overflow: 'scroll', overflowX: 'hidden'}}
           >
-            {messages.map((message, i) => {
+            {messages.map((message, index) => {
               let senderName = message.userName
               let messageContent = message.text
 
               return (
-                <Comment key={`message_${i}`} style={{margin: '0', padding: '0'}}>
+                <Comment key={`message_${index}`} style={{margin: '0', padding: '0'}}>
                   <Comment.Content>
                       <Comment.Author
                         as='span'
