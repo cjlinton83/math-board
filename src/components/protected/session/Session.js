@@ -43,7 +43,7 @@ export class Session extends Component {
 
   render() {
     return (
-      <div>
+      <div style={{ height: '90vh', marginTop: '5em' }}>
         <Whiteboard />
         <Chat 
           messages={this.state.messages}

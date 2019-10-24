@@ -11,7 +11,7 @@ import SendForm from './SendForm'
 export class Chat extends Component {
   render() {
     return (
-      <div style={{ position: 'relative', bottom: '4em', float: 'right' }}>
+      <div style={{ position: 'relative', bottom: '1em', right: '1em', float: 'right' }}>
         <Popup
             basic
             flowing
