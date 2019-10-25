@@ -24,6 +24,8 @@ class SendMessageForm extends Component {
   }
 
   render() {
+    const { message } = this.state
+
     return (
       <Form onSubmit={this.handleSubmit}>
         <Form.Input 
@@ -31,7 +33,7 @@ class SendMessageForm extends Component {
           autoFocus
           name='message'
           placeholder='Type message then press Enter'
-          value={this.state.message}
+          value={message}
           onChange={this.handleChange}
         />
       </Form>

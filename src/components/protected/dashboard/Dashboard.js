@@ -9,11 +9,11 @@ import {
 import Calendar from './calendar/Calendar'
 
 const Dashboard = (props) => {
-  const userName = props.auth.user.name
-  const userRole = props.auth.user.role
+  const { name, role } = props.auth.user
+
   return (
     <Container style={{ marginTop: '8em', marginBottom: '4em' }}>
-      <h1>Welcome, {userName} ({userRole})!</h1>
+      <h1>Welcome, {name} ({role})!</h1>
       <Divider hidden />
       <Calendar />
       <Divider hidden />

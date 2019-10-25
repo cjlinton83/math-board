@@ -48,19 +48,18 @@ class MessageList extends Component {
             style={{height: '10em', overflow: 'scroll', overflowX: 'hidden'}}
           >
             {messages.map((message, index) => {
-              let senderName = message.userName
-              let messageContent = message.text
+              const { userName, text } = message
 
               return (
                 <Comment key={`message_${index}`} style={{margin: '0', padding: '0'}}>
                   <Comment.Content>
                       <Comment.Author
                         as='span'
-                        children={`${senderName.toUpperCase()}:`}
+                        children={`${userName.toUpperCase()}:`}
                         style={{fontWeight: '600'}}
                       />
                       <Comment.Text
-                        children={messageContent}
+                        children={text}
                         style={{display: 'inline-block', marginLeft: '1.25em'}}
                       />
                   </Comment.Content>

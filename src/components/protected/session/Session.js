@@ -8,7 +8,7 @@ export class Session extends Component {
   constructor(props) {
     super(props)
 
-    let userName = this.props.userName
+    let { userName } = this.props
     if (userName.indexOf(' ') !== -1) {
       userName = userName.slice(0, userName.indexOf(' '))
     }
@@ -42,11 +42,13 @@ export class Session extends Component {
   }
 
   render() {
+    const { messages } = this.state
+    
     return (
       <div style={{ height: '90vh', marginTop: '5em' }}>
         <Whiteboard />
         <Chat 
-          messages={this.state.messages}
+          messages={messages}
           sendMessage={this.sendMessage}
         />
       </div>

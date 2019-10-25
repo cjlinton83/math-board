@@ -12,6 +12,8 @@ import {
 import { logoutUser } from '../../actions/authActions'
 
 const Navbar = (props) => {
+  const { isAuthenticated } = props.auth
+
   const handleSignOut = (e) => {
     e.preventDefault()
     props.logoutUser()
@@ -38,7 +40,7 @@ const Navbar = (props) => {
     </Menu.Item>
   )
 
-  return (
+  return (    
     <nav>
       <Menu fixed='top' inverted>
         <Container fluid>
@@ -47,7 +49,7 @@ const Navbar = (props) => {
             The Math Board Project
           </Menu.Item>
 
-          {props.auth.isAuthenticated ? <LoggedIn /> : <LoggedOut />}
+          {isAuthenticated ? <LoggedIn /> : <LoggedOut />}
         </Container>
       </Menu>
     </nav>

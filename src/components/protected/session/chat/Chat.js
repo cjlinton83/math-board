@@ -10,6 +10,8 @@ import SendForm from './SendForm'
 
 export class Chat extends Component {
   render() {
+    const { messages, sendMessage } = this.props
+
     return (
       <div style={{ position: 'relative', bottom: '1em', right: '1em', float: 'right' }}>
         <Popup
@@ -24,8 +26,8 @@ export class Chat extends Component {
           }
           children={
             <div>
-              <MessageList messages={this.props.messages} />
-              <SendForm sendMessage={this.props.sendMessage} />
+              <MessageList messages={messages} />
+              <SendForm sendMessage={sendMessage} />
             </div>
           }
           style={{ width: '40em' }}
