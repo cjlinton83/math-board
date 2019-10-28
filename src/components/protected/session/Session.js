@@ -46,11 +46,11 @@ export class Session extends Component {
     
     return (
       <div style={{ height: '90vh', marginTop: '5em' }}>
-        <Whiteboard />
-        <Chat 
-          messages={messages}
-          sendMessage={this.sendMessage}
-        />
+          <Whiteboard />
+          <Chat 
+            messages={messages}
+            sendMessage={this.sendMessage}
+          />
       </div>
     )
   }

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Segment, Comment } from 'semantic-ui-react'
+import MathJax from 'react-mathjax2'
 
 class MessageList extends Component {
   constructor(props) {
@@ -59,9 +60,19 @@ class MessageList extends Component {
                         style={{fontWeight: '600'}}
                       />
                       <Comment.Text
-                        children={text}
                         style={{display: 'inline-block', marginLeft: '1.25em'}}
-                      />
+                      >
+                        <MathJax.Context 
+                          input='ascii'
+                          options={{
+                            asciimath2jax: {
+                              delimiters: [['`','`']]
+                            }
+                          }}
+                        >
+                          <MathJax.Text text={text} />
+                        </MathJax.Context>
+                      </Comment.Text>
                   </Comment.Content>
                 </Comment>
               )
