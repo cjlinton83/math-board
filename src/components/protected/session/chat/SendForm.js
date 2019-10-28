@@ -33,7 +33,7 @@ class SendMessageForm extends Component {
           type='text'
           autoFocus
           name='message'
-          placeholder="Type message or enter AsciiMath between backticks then press ENTER"
+          placeholder='Type a message then press ENTER'
           value={message}
           onChange={this.handleChange}
         />
@@ -46,16 +46,18 @@ class SendMessageForm extends Component {
             }
           }}
         >
-          <MathJax.Text text={
-            message.length > 0 && message.charAt(0) === '`' ? message : ''
-          } />
+          <MathJax.Text 
+            text={message.length > 0 && message.indexOf('`') !== -1 ? message : ''}
+          />
         </MathJax.Context>
 
+        <p><em>You can insert mathematical symbols into your message by adding 
+          AsciiMath syntax between backticks ( ` ) into your message</em></p>
         <a 
           href='http://asciimath.org/#syntax' 
           target='_blank'
           rel="noopener noreferrer"
-        >ASCII Math Syntax</a>
+        >View AsciiMath Syntax</a>
       </Form>
     )
   }
