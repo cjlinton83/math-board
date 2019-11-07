@@ -4,12 +4,16 @@ const bodyParser = require('body-parser')
 const path = require('path')
 const passport = require('passport')
 const users = require('./server/routes/api/users')
+const cookieParser = require('cookie-parser')
 
 const app = express()
 
 // Bodyparser middleware
-app.use(bodyParser.urlencoded({ extended: false }))
-app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+//cookieParser
+app.use(cookieParser());
 
 // Database config
 const connection = require('./server/config/keys').MONGODB_URL
@@ -41,4 +45,11 @@ app.get('*', (req, res) => {
 const port = process.env.PORT || 5000
 app.listen(port, () => {
     console.log(`Server listening on port ${port}`)
+})
+
+const { sendEmail } = require('./src/components/auth/mail');
+
+app.post("/api/sendMail", (req, res) => {
+    console.log(req.body)
+    sendEmail(req.body.email, req.body.name, "hello")
 })

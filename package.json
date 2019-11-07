@@ -3,8 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "calendar": "file:mdb-full-calendar-4.16.0.tgz",
-    "mdbreact": "^4.16.0",
     "@fullcalendar/core": "^4.3.1",
     "@fullcalendar/daygrid": "^4.3.0",
     "@fullcalendar/react": "^4.3.0",
@@ -13,12 +11,16 @@
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "bootstrap": "^4.3.1",
+    "calendar": "file:mdb-full-calendar-4.16.0.tgz",
+    "cookie-parser": "^1.4.4",
     "express": "^4.17.1",
     "is-empty": "^1.2.0",
     "jsonwebtoken": "^8.5.1",
     "jwt-decode": "^2.2.0",
     "konva": "^4.0.15",
+    "mdbreact": "^4.16.0",
     "mongoose": "^5.7.4",
+    "nodemailer": "^6.3.1",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
     "react": "^16.10.0",
@@ -41,7 +43,10 @@
     "app": "node server.js | react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "backend": "nodemon server.js",
+    "frontend": "npm run front",
+    "dev": "concurrently \"npm run backend\"  \"npm run start\""
   },
   "proxy": "http://localhost:5000",
   "eslintConfig": {
@@ -58,5 +63,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "concurrently": "^5.0.0",
+    "nodemon": "^1.19.4"
   }
 }

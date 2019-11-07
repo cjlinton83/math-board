@@ -1,7 +1,5 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
 import isEmpty from 'is-empty'
 import {
   Grid,
@@ -11,23 +9,21 @@ import {
   Button,
   Message
 } from 'semantic-ui-react'
+import axios from 'axios'
 
-import { loginUser } from '../../actions/authActions'
-
-class LogIn extends React.Component {
+class ForgotPassword extends React.Component {
   constructor(props) {
     super(props)
 
     this.state = {
       email: '',
-      password: '',
+      name:  '',
       errors: {}
     }
 
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
   }
-  
   componentDidUpdate(prevProps) {
     if (prevProps.errors !== this.props.errors) {
       this.setState({ errors: this.props.errors })
@@ -36,30 +32,45 @@ class LogIn extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault()
-    const { email, password } = this.state
-
+    const { email, name } = this.state
     const userData = {
-      email,
-      password
+      name,
+      email
     }
-    this.props.loginUser(userData)
+    axios.post("/api/sendMail", userData )
   }
+
+  
 
   handleChange(e) {
     this.setState({ [e.target.name]: e.target.value })
   }
 
   render() {
-    const { email, password } = this.state
-    return (
+    const { email, name } = this.state
+
+  return(
       <Grid textAlign='center' verticalAlign='middle' style={{ marginTop: '8em' }}>
         <Grid.Column style={{ maxWidth: 450 }}>
           <Header as='h2' textAlign='center'>
-            Log in to your account
+            Forgot Password
           </Header>
           
           <Segment stacked>
             <Form size='large' onSubmit={this.handleSubmit} >
+
+            <Form.Input
+                fluid
+                icon='user'
+                iconPosition='left'
+                placeholder='Name'
+                id='name'
+                name='name'
+                value={name}
+                onChange={this.handleChange}
+                tabIndex={1}
+              />
+
               <Form.Input
                 fluid
                 icon='user'
@@ -69,20 +80,9 @@ class LogIn extends React.Component {
                 name='email'
                 value={email}
                 onChange={this.handleChange}
-                tabIndex={1}
-              />
-              <Form.Input
-                fluid
-                icon='lock'
-                iconPosition='left'
-                placeholder='Password'
-                type='password'
-                id='password'
-                name='password'
-                value={password}
-                onChange={this.handleChange}
                 tabIndex={2}
               />
+
 
               <Button 
                 primary 
@@ -91,7 +91,7 @@ class LogIn extends React.Component {
                 tabIndex={3}
                 style={{ marginBottom: '0.5em' }}
               >
-                Log In
+                Submit
               </Button>
             </Form>
           </Segment>
@@ -107,27 +107,10 @@ class LogIn extends React.Component {
           }
           
           <Message>
-            New user? <Link to='/signup'>Sign up.</Link>
-            <Link to='/ForgotPassword'>ForgotPassword.</Link>
+            <Link to='/'>Return Home</Link>
           </Message>
         </Grid.Column>
       </Grid>
-    )
-  }
+  )}
 }
-
-LogIn.propTypes = {
-  loginUser: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
-  errors: PropTypes.object.isRequired
-}
-
-const mapStateToProps = state => ({
-  auth: state.auth,
-  errors: state.errors
-})
-
-export default connect(
-  mapStateToProps,
-  { loginUser }
-)(LogIn)
+export default ForgotPassword
