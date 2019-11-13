@@ -4,7 +4,7 @@ import io from 'socket.io-client'
 import Whiteboard from './whiteboard/Whiteboard'
 import Chat from './chat/Chat'
 
-export class Session extends Component {
+class Session extends Component {
   constructor(props) {
     super(props)
 
@@ -16,16 +16,19 @@ export class Session extends Component {
     this.state = {
       userName,
       messages: [],
+      newMessageCount: 0
     }
 
     this.socket = io('localhost:5000/chat')
     this.socket.on('RECEIVE_MESSAGE', data => {
+      this.setState({ newMessageCount: this.state.newMessageCount+1 })
       this.setState({
         messages: [...this.state.messages, data]
       })
     })
 
     this.sendMessage = this.sendMessage.bind(this)
+    this.clearMessageCount = this.clearMessageCount.bind(this)
   }
 
   sendMessage(message) {
@@ -42,20 +45,26 @@ export class Session extends Component {
     }
   }
 
+  clearMessageCount() {
+    this.setState({ newMessageCount: 0 })
+  }
+
   componentWillUnmount() {
     this.socket.close()
   }
 
   render() {
-    const { messages } = this.state
+    const { messages, newMessageCount } = this.state
     
     return (
       <div style={{ height: '90vh', marginTop: '5em' }}>
-          <Whiteboard />
-          <Chat 
-            messages={messages}
-            sendMessage={this.sendMessage}
-          />
+        <Whiteboard />
+        <Chat
+          clearMessageCount={this.clearMessageCount}
+          newMessageCount={newMessageCount}
+          messages={messages}
+          sendMessage={this.sendMessage}
+        />
       </div>
     )
   }
