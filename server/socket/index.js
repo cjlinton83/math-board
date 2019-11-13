@@ -2,12 +2,15 @@ const socket = require('socket.io')
 
 module.exports = server => {
   io = socket(server)
+  const chat = io.of('/chat')
 
-  io.on('connection', socket => {
+  chat.on('connection', socket => {
+    socket.join('defaultroom')
     console.log(socket.id)
 
     socket.on('SEND_MESSAGE', data => {
-        io.emit('RECEIVE_MESSAGE', data)
+        console.log(data)
+        socket.to('defaultroom').emit('RECEIVE_MESSAGE', data)
     })
 
     socket.on('disconnect', reason => {

@@ -15,10 +15,10 @@ export class Session extends Component {
 
     this.state = {
       userName,
-      messages: []
+      messages: [],
     }
 
-    this.socket = io('localhost:5000')
+    this.socket = io('localhost:5000/chat')
     this.socket.on('RECEIVE_MESSAGE', data => {
       this.setState({
         messages: [...this.state.messages, data]
@@ -30,10 +30,15 @@ export class Session extends Component {
 
   sendMessage(message) {
     if (message !== '' && message.trim() !== '') {
-      this.socket.emit('SEND_MESSAGE', {
+      const messagePayload = {
         userName: this.state.userName,
         text: message
+      }
+
+      this.setState({
+        messages: [...this.state.messages, messagePayload]
       })
+      this.socket.emit('SEND_MESSAGE', messagePayload)
     }
   }
 
