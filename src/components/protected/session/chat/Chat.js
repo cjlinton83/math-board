@@ -9,14 +9,36 @@ import NotificationBadge from 'react-notification-badge'
 import MessageList from './MessageList'
 import SendForm from './SendForm'
 
+const styles = {
+  chatRoot: {
+    position: 'relative',
+    bottom: '1em',
+    right: '1em',
+    float: 'right',
+    zIndex: 20
+  },
+  chatOpenDiv: {
+    position: 'absolute',
+    right: '0em',
+    bottom: '4em',
+    width: '30em'
+  },
+  notificationBadge: {
+    zIndex: 30
+  },
+  chatOpenButton: {
+    loat: 'right'
+  }
+}
+
 const Chat = props => {
   const [isOpen, setIsOpen] = React.useState(false)
   const { messages, sendMessage, newMessageCount, clearMessageCount } = props
 
   return (
-    <div style={{ position: 'relative', bottom: '1em', right: '1em', float: 'right', zIndex: 20}}>
+    <div style={styles.chatRoot}>
       { isOpen ?
-          <Segment style={{ position: 'absolute', right: '0em', bottom: '4em', width: '30em' }}>
+          <Segment style={styles.chatOpenDiv}>
             <MessageList messages={messages} />
             <SendForm sendMessage={sendMessage} />
           </Segment>
@@ -24,13 +46,13 @@ const Chat = props => {
       }
 
       <div>
-        <NotificationBadge count={isOpen ? 0 : newMessageCount} style={{ zIndex: 30 }} />
+        <NotificationBadge count={isOpen ? 0 : newMessageCount} style={styles.notificationBadge} />
       </div>
       <Button 
         icon
         labelPosition='left'
         size='big'
-        style={{ float: 'right' }}
+        style={styles.chatOpenButton}
         onClick={() => {
           setIsOpen(!isOpen)
           clearMessageCount()
