@@ -57,7 +57,7 @@ class SignUp extends React.Component {
   }
 
   render() {
-    const { name, role, email, password, confirm } = this.state
+    const { name, role, email, password, confirm, errors } = this.state
 
     return (
       <Grid textAlign='center' verticalAlign='middle' 
@@ -145,11 +145,11 @@ class SignUp extends React.Component {
             </Form>
           </Segment>
 
-          {!isEmpty(this.state.errors)
+          {!isEmpty(errors)
             ? (
                 <Message 
                   error
-                  list={Object.values(this.state.errors)}
+                  list={Object.values(errors)}
                 />
               )
             : null

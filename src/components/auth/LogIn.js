@@ -50,7 +50,8 @@ class LogIn extends React.Component {
   }
 
   render() {
-    const { email, password } = this.state
+    const { email, password, errors } = this.state
+
     return (
       <Grid textAlign='center' verticalAlign='middle' style={{ marginTop: '8em' }}>
         <Grid.Column style={{ maxWidth: 450 }}>
@@ -96,11 +97,11 @@ class LogIn extends React.Component {
             </Form>
           </Segment>
 
-          {!isEmpty(this.state.errors)
+          {!isEmpty(errors)
             ? (
                 <Message 
                   error
-                  list={Object.values(this.state.errors)}
+                  list={Object.values(errors)}
                 />
               )
             : null

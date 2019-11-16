@@ -8,9 +8,10 @@ import { setCurrentUser, logoutUser } from './actions/authActions'
 
 import Navbar from './components/layout/Navbar'
 import Landing from './components/layout/Landing'
-import Dashboard from './components/protected/Dashboard'
+import Dashboard from './components/protected/dashboard/Dashboard'
 import LogIn from './components/auth/LogIn'
 import SignUp from './components/auth/SignUp'
+import Session from './components/protected/session/Session'
 
 import store from './store'
 
@@ -27,22 +28,27 @@ if (localStorage.jwtToken) {
   }
 }
 
-const App = (props) => {  
+const App = (props) => {
+  const { isAuthenticated, user } = props.auth
+
   return (
     <BrowserRouter>
       <Navbar />
       <Switch>
         <Route exact path='/'>
-          {props.auth.isAuthenticated ? <Redirect to='/dashboard' /> : <Landing />}
+          {isAuthenticated ? <Redirect to='/dashboard' /> : <Landing />}
         </Route>
         <Route path='/login'>
-          {props.auth.isAuthenticated ? <Redirect to='/dashboard' /> : <LogIn />}
+          {isAuthenticated ? <Redirect to='/dashboard' /> : <LogIn />}
         </Route>
         <Route path='/signup'>
-          {props.auth.isAuthenticated ? <Redirect to='/dashboard' /> : <SignUp />}
+          {isAuthenticated ? <Redirect to='/dashboard' /> : <SignUp />}
         </Route>
         <Route path='/dashboard'>
-          {props.auth.isAuthenticated ? <Dashboard /> : <Redirect to='/login' />}
+          {isAuthenticated ? <Dashboard /> : <Redirect to='/login' />}
+        </Route>
+        <Route path='/session'>
+          {isAuthenticated ? <Session userName={user.name} /> : <Redirect to='/login' />}
         </Route>
         <Route path='*'>
           <Redirect to='/' />
