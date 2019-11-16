@@ -4,6 +4,13 @@ import io from 'socket.io-client'
 import Whiteboard from './whiteboard/Whiteboard'
 import Chat from './chat/Chat'
 
+const styles = {
+  rootDiv: {
+    height: '90vh',
+    marginTop: '5em'
+  }
+} 
+
 class Session extends Component {
   constructor(props) {
     super(props)
@@ -57,7 +64,7 @@ class Session extends Component {
     const { messages, newMessageCount } = this.state
     
     return (
-      <div style={{ height: '90vh', marginTop: '5em' }}>
+      <div style={styles.rootDiv}>
         <Whiteboard />
         <Chat
           clearMessageCount={this.clearMessageCount}

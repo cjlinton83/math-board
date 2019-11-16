@@ -11,6 +11,11 @@ import {
 
 import { logoutUser } from '../../actions/authActions'
 
+const styles = {
+  navbarLogo: {
+    marginRight: '1.5em'
+  }
+}
 const Navbar = (props) => {
   const { isAuthenticated } = props.auth
 
@@ -45,7 +50,7 @@ const Navbar = (props) => {
       <Menu fixed='top' inverted>
         <Container fluid>
           <Menu.Item as={Link} to='/' header>
-            <Image size='mini' src='./logo.png' style={{ marginRight: '1.5em'}} />
+            <Image size='mini' src='./logo.png' style={styles.navbarLogo} />
             The Math Board Project
           </Menu.Item>
 

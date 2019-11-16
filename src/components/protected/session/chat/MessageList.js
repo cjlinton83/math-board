@@ -2,6 +2,25 @@ import React, { Component } from 'react'
 import { Segment, Comment } from 'semantic-ui-react'
 import MathJax from 'react-mathjax2'
 
+const styles = {
+  commentDiv: {
+    height: '10em',
+    overflow: 'scroll',
+    overflowX: 'hidden'
+  },
+  comments: {
+    margin: '0',
+    padding: '0'
+  },
+  commentAuthor: {
+    fontWeight: '600'
+  },
+  commentText: {
+    display: 'inline-block',
+    marginLeft: '1.25em'
+  }
+}
+
 class MessageList extends Component {
   constructor(props) {
     super(props)
@@ -44,24 +63,19 @@ class MessageList extends Component {
     return (
       <Segment>
         <Comment.Group>
-          <div 
-            ref={this.scrollDiv}
-            style={{height: '10em', overflow: 'scroll', overflowX: 'hidden'}}
-          >
+          <div ref={this.scrollDiv} style={styles.commentDiv}>
             {messages.map((message, index) => {
               const { userName, text } = message
 
               return (
-                <Comment key={`message_${index}`} style={{margin: '0', padding: '0'}}>
+                <Comment key={`message_${index}`} style={styles.comments}>
                   <Comment.Content>
                       <Comment.Author
                         as='span'
                         children={`${userName.toUpperCase()}:`}
-                        style={{fontWeight: '600'}}
+                        style={styles.commentAuthor}
                       />
-                      <Comment.Text
-                        style={{display: 'inline-block', marginLeft: '1.25em'}}
-                      >
+                      <Comment.Text style={styles.commentText}>
                         <MathJax.Context 
                           input='ascii'
                           options={{

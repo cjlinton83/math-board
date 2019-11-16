@@ -14,6 +14,15 @@ import {
 
 import { registerUser } from '../../actions/authActions'
 
+const styles = {
+  grid: {
+    marginTop: '8em'
+  },
+  columns: {
+    maxWidth: 550
+  }
+}
+
 class SignUp extends React.Component {
   constructor(props) {
     super(props)
@@ -60,9 +69,8 @@ class SignUp extends React.Component {
     const { name, role, email, password, confirm, errors } = this.state
 
     return (
-      <Grid textAlign='center' verticalAlign='middle' 
-        style={{ marginTop: '8em' }}>
-        <Grid.Column style={{ maxWidth: 550 }}>
+      <Grid textAlign='center' verticalAlign='middle' style={styles.grid}>
+        <Grid.Column style={styles.columns}>
           <Header as='h2' textAlign='center'>
             Create a new account
           </Header>

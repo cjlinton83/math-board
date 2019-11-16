@@ -8,11 +8,18 @@ import {
 
 import Calendar from './calendar/Calendar'
 
+const styles = {
+  rootContainer: {
+    marginTop: '8em', marginBottom: '4em'
+  },
+
+}
+
 const Dashboard = (props) => {
   const { name, role } = props.auth.user
 
   return (
-    <Container style={{ marginTop: '8em', marginBottom: '4em' }}>
+    <Container style={styles.rootContainer}>
       <h1>Welcome, {name} ({role})!</h1>
       <Divider hidden />
       <Calendar />

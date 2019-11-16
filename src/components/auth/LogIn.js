@@ -14,6 +14,18 @@ import {
 
 import { loginUser } from '../../actions/authActions'
 
+const styles = {
+  grid: {
+    marginTop: '8em'
+  },
+  columuns: {
+    maxWidth: 450
+  },
+  loginButton: {
+    marginBottom: '0.5em'
+  }
+}
+
 class LogIn extends React.Component {
   constructor(props) {
     super(props)
@@ -53,8 +65,8 @@ class LogIn extends React.Component {
     const { email, password, errors } = this.state
 
     return (
-      <Grid textAlign='center' verticalAlign='middle' style={{ marginTop: '8em' }}>
-        <Grid.Column style={{ maxWidth: 450 }}>
+      <Grid textAlign='center' verticalAlign='middle' style={styles.grid}>
+        <Grid.Column style={styles.columuns}>
           <Header as='h2' textAlign='center'>
             Log in to your account
           </Header>
@@ -90,7 +102,7 @@ class LogIn extends React.Component {
                 fluid
                 size='large'
                 tabIndex={3}
-                style={{ marginBottom: '0.5em' }}
+                style={styles.loginButton}
               >
                 Log In
               </Button>

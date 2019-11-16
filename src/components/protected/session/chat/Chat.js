@@ -46,7 +46,10 @@ const Chat = props => {
       }
 
       <div>
-        <NotificationBadge count={isOpen ? 0 : newMessageCount} style={styles.notificationBadge} />
+        <NotificationBadge
+          count={isOpen ? 0 : newMessageCount}
+          style={styles.notificationBadge}
+        />
       </div>
       <Button 
         icon
@@ -59,7 +62,7 @@ const Chat = props => {
         }}
       >
         <Icon name='comment alternate outline' />
-        {isOpen ? 'Close Chat' : 'Open Chat'}
+        { isOpen ? 'Close Chat' : 'Open Chat' }
       </Button>
     </div>
   )
