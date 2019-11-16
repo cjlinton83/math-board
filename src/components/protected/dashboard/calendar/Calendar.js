@@ -3,19 +3,6 @@ import FullCalendar from "calendar";
 import { addHours, addDays, addWeeks, startOfWeek } from "date-fns";
 import { MDBContainer } from "mdbreact";
 
-// import '@fullcalendar/core/main.css'
-// import '@fullcalendar/daygrid/main.css'
-
-// const Calendar = (props) => {
-//     return (
-//         <FullCalendar 
-//             defaultView='dayGridMonth'
-//             plugins={[ dayGridPlugin ]}
-//         />
-//     )
-// }
-
-// export default Calendar
 const today = new Date();
 
 class App extends Component {
@@ -68,11 +55,9 @@ class App extends Component {
 
   render() {
     return (
-      <>
-        <MDBContainer className="my-5">
-          <FullCalendar tasks={this.state.tasks} onChange={this.handleTasksUpdate}/>
-        </MDBContainer>
-      </>
+      <MDBContainer className="my-5">
+        <FullCalendar tasks={this.state.tasks} onChange={this.handleTasksUpdate}/>
+      </MDBContainer>
     );
   }
 }
