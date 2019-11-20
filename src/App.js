@@ -12,6 +12,7 @@ import Dashboard from './components/protected/dashboard/Dashboard'
 import LogIn from './components/auth/LogIn'
 import SignUp from './components/auth/SignUp'
 import Session from './components/protected/session/Session'
+import Video from './components/protected/session/video/Video'
 
 import store from './store'
 
@@ -49,6 +50,9 @@ const App = (props) => {
         </Route>
         <Route path='/session'>
           {isAuthenticated ? <Session userName={user.name} /> : <Redirect to='/login' />}
+        </Route>
+        <Route path='/video'>
+          {isAuthenticated ? <Video/> : <Redirect to='/login' />}
         </Route>
         <Route path='*'>
           <Redirect to='/' />

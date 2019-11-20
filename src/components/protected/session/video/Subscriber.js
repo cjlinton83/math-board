@@ -1,0 +1,71 @@
+import React from 'react';
+import { OTSubscriber } from 'opentok-react';
+import CheckBox from './CheckBox';
+import {
+    Button,
+    Label,
+    Icon,
+    Segment
+} from 'semantic-ui-react'
+
+const styles = {
+
+}
+
+class Subscriber extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            error: null,
+            audio: true,
+            video: true
+        };
+    }
+
+    setAudio = (audio) => {
+        this.setState({ audio });
+    }
+
+    setVideo = (video) => {
+        this.setState({ video });
+    }
+
+    onError = (err) => {
+        this.setState({ error: `Failed to subscribe: ${err.message}` });
+    }
+
+    render() {
+        return (
+            <div className="subscriber">
+                <h1>You</h1>
+                {this.state.error ? <div id="error">{this.state.error}</div> : null}
+                <OTSubscriber
+                    properties={{
+                        subscribeToAudio: this.state.audio,
+                        subscribeToVideo: this.state.video
+                    }}
+                    onError={this.onError}
+                />
+                <CheckBox
+                    style={styles.checkbox}
+                    label="Share Screen "
+                    onChange={this.changeVideoSource}
+                />
+                <CheckBox
+                    style={styles.checkbox}
+                    label="Connect Voice "
+                    initialChecked={this.state.audio}
+                    onChange={this.setAudio}
+                />
+                <CheckBox
+                    style={styles.checkbox}
+                    label="Connect Video "
+                    initialChecked={this.state.video}
+                    onChange={this.setVideo}
+                />
+            </div>
+        );
+    }
+}
+export default Subscriber;

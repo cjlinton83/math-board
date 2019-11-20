@@ -1,0 +1,29 @@
+body, html {
+    height: 100%;
+    font-family: Verdana, Geneva, sans-serif
+  }
+  .connectionStatus {
+    padding-top: 20px;
+    margin-left: 5%;
+    font-size: 1.5em;
+  }
+  .subscriber {
+    position:absolute;
+    right: 10em;
+    bottom: 30em;
+    height: auto;
+    width: 10em;
+  }
+  .publisher {
+    position:absolute;
+    right: 15em;
+    bottom: 30em;
+    width: 40em;
+  }
+  .OTPublisherContainer {
+    width: 40vh !important;
+    height: 30vh !important;
+  }
+  #error {
+    color: red;
+  }
