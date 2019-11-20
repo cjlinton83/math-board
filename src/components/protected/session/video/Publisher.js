@@ -31,7 +31,7 @@ class Publisher extends React.Component {
     render() {
         return (
             <div className="publisher">
-                <h1>Not You</h1>
+                <h1>You</h1>
 
         {this.state.error ? <div id="error">{this.state.error}</div> : null}
 
@@ -45,16 +45,16 @@ class Publisher extends React.Component {
                 />
 
                 <CheckBox
-                    label="Share Screen"
+                    label="Share Your Screen"
                     onChange={this.changeVideoSource}
                 />
                 <CheckBox
-                    label="Connect Voice"
+                    label="Connect Your Voice"
                     initialChecked={this.state.audio}
                     onChange={this.setAudio}
                 />
                 <CheckBox
-                    label="Connect Video"
+                    label="Connect Your Video"
                     initialChecked={this.state.video}
                     onChange={this.setVideo}
                 />

@@ -10,17 +10,22 @@ body, html {
   .subscriber {
     position:absolute;
     right: 10em;
-    bottom: 30em;
+    top: 5em;
     height: auto;
-    width: 10em;
+    width: 40em;
   }
   .publisher {
     position:absolute;
-    right: 15em;
-    bottom: 30em;
-    width: 40em;
+    right: 6em;
+    top: 5em;
+    /* height: auto; */
+    width: 10em;
   }
   .OTPublisherContainer {
+    width: 20vh !important;
+    height: 15vh !important;
+  }
+  .OTSubscriberContainer {
     width: 40vh !important;
     height: 30vh !important;
   }

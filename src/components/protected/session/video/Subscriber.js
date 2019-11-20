@@ -38,7 +38,7 @@ class Subscriber extends React.Component {
     render() {
         return (
             <div className="subscriber">
-                <h1>You</h1>
+                <h1>Not You</h1>
                 {this.state.error ? <div id="error">{this.state.error}</div> : null}
                 <OTSubscriber
                     properties={{
@@ -47,20 +47,17 @@ class Subscriber extends React.Component {
                     }}
                     onError={this.onError}
                 />
-                <CheckBox
-                    style={styles.checkbox}
-                    label="Share Screen "
+                {/* <CheckBox
+                    label="Show Screen-Share "
                     onChange={this.changeVideoSource}
-                />
+                /> */}
                 <CheckBox
-                    style={styles.checkbox}
-                    label="Connect Voice "
+                    label="Connect Their Voice "
                     initialChecked={this.state.audio}
                     onChange={this.setAudio}
                 />
                 <CheckBox
-                    style={styles.checkbox}
-                    label="Connect Video "
+                    label="Show Their Video "
                     initialChecked={this.state.video}
                     onChange={this.setVideo}
                 />
