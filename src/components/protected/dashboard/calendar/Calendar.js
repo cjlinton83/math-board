@@ -6,7 +6,7 @@ import googleCalendarPlugin from '@fullcalendar/google-calendar'
 import '@fullcalendar/core/main.css';
 import '@fullcalendar/daygrid/main.css';
 
-import GoogleKeys from '../../keys/googleCalendar'
+import GoogleKeys from '../../../../keys/googleCalendar'
 
 const Calendar = props => {
   return(
