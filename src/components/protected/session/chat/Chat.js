@@ -27,7 +27,7 @@ const styles = {
     zIndex: 30
   },
   chatOpenButton: {
-    loat: 'right'
+    float: 'right'
   }
 }
 
