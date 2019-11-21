@@ -3,13 +3,16 @@ import io from 'socket.io-client'
 
 import Whiteboard from './whiteboard/Whiteboard'
 import Chat from './chat/Chat'
+import Video from './video/Video'
+import config from './video/config';
+
 
 const styles = {
   rootDiv: {
     height: '90vh',
     marginTop: '5em'
   }
-} 
+}
 
 class Session extends Component {
   constructor(props) {
@@ -28,7 +31,7 @@ class Session extends Component {
 
     this.socket = io('localhost:5000/chat')
     this.socket.on('RECEIVE_MESSAGE', data => {
-      this.setState({ newMessageCount: this.state.newMessageCount+1 })
+      this.setState({ newMessageCount: this.state.newMessageCount + 1 })
       this.setState({
         messages: [...this.state.messages, data]
       })
@@ -62,7 +65,7 @@ class Session extends Component {
 
   render() {
     const { messages, newMessageCount } = this.state
-    
+
     return (
       <div style={styles.rootDiv}>
         <Whiteboard />
@@ -71,6 +74,11 @@ class Session extends Component {
           newMessageCount={newMessageCount}
           messages={messages}
           sendMessage={this.sendMessage}
+        />
+        <Video
+          apiKey={config.API_KEY}
+          sessionId={config.SESSION_ID}
+          token={config.TOKEN}
         />
       </div>
     )
