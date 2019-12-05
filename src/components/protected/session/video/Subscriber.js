@@ -10,7 +10,7 @@
 
     const styles = {
         segment: {
-            width: '25em',
+            width: '28em',
         }
     }
     class Subscriber extends React.Component {
@@ -41,7 +41,7 @@
                 <div className="subscriber">
                     <h1>Not You</h1>
                     {this.state.error ? <div id="error">{this.state.error}</div> : null}
-                    <Segment>
+                    <Segment style={styles.segment}>
                         <OTSubscriber
                             properties={{
                                 subscribeToAudio: this.state.audio,
