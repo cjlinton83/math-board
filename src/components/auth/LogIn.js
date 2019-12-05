@@ -107,7 +107,6 @@ class LogIn extends React.Component {
           }
           
           <Message>
-            New user? <Link to='/signup'>Sign up.</Link>
             <Link to='/ForgotPassword'>ForgotPassword.</Link>
           </Message>
         </Grid.Column>

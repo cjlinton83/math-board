@@ -1,18 +1,34 @@
+//import { User } from '../../../server/models/User'
 const mailer = require("nodemailer");
 const { Hello } = require("./hello_template");
 const { password } = require("./password_template");
+const { User } = require("../../../server/models/User");
+var crypto = require('crypto');
+//import { User } from '../../../server/models/User'
 
 const getEmailData = (to, name, template) => {
-    let data = null;
+  //  let data = null;
+
+    const token = crypto.randomBytes(20).toString('hex');
+    console.log(token);
+    /*User.update({
+      resetPasswordToken: token,
+      resetPasswordExpires: Date.now() + 360000,
+    });*/
 
     switch (template) {
         case "hello":
             data = {
                 from: "MathBoard <mathboardtutoring@gmail.com>",
                 to,
-                subject: `This is your Password Recovery ${name}`,
-                html: Hello()
-            }
+                subject: `This is your Password Recovery link`,
+                text: `http://localhost:3031/reset/${token}`,
+            };
+            /*      from: `mathboardtutoring@gmail.com`,
+      to: `${user.email}`,
+      subject: `link to Rest Password`,
+      text:`http://localhost:3031/reset/${token}\n\n`,
+    }; */
             break;
 
         case "password":

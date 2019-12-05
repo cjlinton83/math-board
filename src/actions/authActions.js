@@ -50,3 +50,17 @@ export const logoutUser = () => dispatch => {
   setAuthToken(false)
   dispatch(setCurrentUser({}))
 }
+
+export const passReset = (userData) => dispatch => {
+  axios
+  .post('/api/users/reset', userData)
+  //.then(res => history.push('/reset'))
+  .catch(err =>
+    dispatch({
+      type: GET_ERRORS,
+      payload: err.response.data
+    })
+  )
+  
+}
+

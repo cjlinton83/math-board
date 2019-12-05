@@ -13,7 +13,9 @@ import LogIn from './components/auth/LogIn'
 import SignUp from './components/auth/SignUp'
 import Whiteboard from './components/protected/Whiteboard'
 import Whiteboard_placeholder from './components/protected/Whiteboard_placeholder'
+import resetPassword from './components/auth/resetPassword'
 import ForgotPassword from './components/auth/ForgotPassword'
+
 
 import store from './store'
 
@@ -41,6 +43,10 @@ const App = (props) => {
 
         <Route path='/ForgotPassword'>
           {props.auth.isAuthenticated ? <Redirect to='/dashboard' /> : <ForgotPassword />}
+        </Route>
+
+        <Route path='/resetPassword'>
+          {props.auth.isAuthenticated ? <Redirect to='/dashboard' /> : <resetPassword />}
         </Route>
 
         <Route path='/login'>

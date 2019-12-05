@@ -14,6 +14,7 @@ const Hello = data => {
                 <div>Password reset email </div>
                 <br />
                 <br />
+
              </body>
      
        </html>

@@ -15,7 +15,7 @@ import {
 import axios from 'axios'
 import { passReset } from '../../actions/authActions'
 
-class ForgotPassword extends React.Component {
+class resetPassword extends React.Component {
   constructor(props) {
     super(props)
 
@@ -125,11 +125,11 @@ class ForgotPassword extends React.Component {
       </Grid>
   )}
 }
-ForgotPassword.propTypes = {
+/*ForgotPassword.propTypes = {
   passReset: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired
-}
+}*/
 
 const mapStateToProps = state => ({
   auth: state.auth,
@@ -137,6 +137,5 @@ const mapStateToProps = state => ({
 })
 
 export default connect(
-  mapStateToProps,
-  { passReset }
-)(ForgotPassword)
+  mapStateToProps
+)(resetPassword)
