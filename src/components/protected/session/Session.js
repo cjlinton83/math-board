@@ -6,6 +6,7 @@ import Chat from './chat/Chat'
 import Video from './video/Video'
 import config from './video/config';
 
+const port = process.env.PORT || 5000
 
 const styles = {
   rootDiv: {
@@ -29,7 +30,7 @@ class Session extends Component {
       newMessageCount: 0
     }
 
-    this.socket = io('localhost:5000/chat')
+    this.socket = io(`localhost:${port}/chat`)
     this.socket.on('RECEIVE_MESSAGE', data => {
       this.setState({ newMessageCount: this.state.newMessageCount + 1 })
       this.setState({
