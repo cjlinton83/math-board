@@ -9,15 +9,15 @@ body, html {
   }
   .subscriber {
     position:absolute;
-    right: 10em;
-    top: 5em;
+    right: 6em;
+    top: 4em;
     height: auto;
     width: 40em;
   }
   .publisher {
     position:absolute;
     right: 6em;
-    top: 5em;
+    top: 4em;
     /* height: auto; */
     width: 10em;
   }
