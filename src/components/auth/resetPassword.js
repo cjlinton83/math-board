@@ -13,9 +13,9 @@ import {
   Message
 } from 'semantic-ui-react'
 import axios from 'axios'
-import { passReset } from '../../actions/authActions'
+//import { passReset } from '../../actions/authActions'
 
-class resetPassword extends React.Component {
+class ResetPassword extends React.Component {
   constructor(props) {
     super(props)
 
@@ -138,4 +138,4 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps
-)(resetPassword)
+)(ResetPassword)

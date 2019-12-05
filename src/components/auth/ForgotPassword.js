@@ -112,7 +112,6 @@ class ForgotPassword extends React.Component {
                 <Message 
                   error
                   list={Object.values(this.state.errors)}
-
                 />
               )
             : null
