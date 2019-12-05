@@ -1,6 +1,5 @@
 import React from 'react';
 import { uniqueId } from 'lodash';
-import { Checkbox } from 'semantic-ui-react'
  
 class CheckBox extends React.Component {
   constructor(props) {

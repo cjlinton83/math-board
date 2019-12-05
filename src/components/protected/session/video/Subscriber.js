@@ -2,9 +2,6 @@
     import { OTSubscriber } from 'opentok-react';
     import CheckBox from './CheckBox';
     import {
-        Button,
-        Label,
-        Icon,
         Segment
     } from 'semantic-ui-react'
 

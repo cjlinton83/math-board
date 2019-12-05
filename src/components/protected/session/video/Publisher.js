@@ -3,8 +3,6 @@ import { OTPublisher } from 'opentok-react';
 import CheckBox from './CheckBox';
 
 import {
-    Button,
-    Icon,
     Segment
 } from 'semantic-ui-react'
 const styles = {

@@ -2,9 +2,7 @@ import React from 'react'
 import {
     Button,
     Icon,
-    Segment
 } from 'semantic-ui-react'
-import NotificationBadge from 'react-notification-badge'
 
 
 import { OTSession, OTStreams, preloadScript } from 'opentok-react';
