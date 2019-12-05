@@ -2,6 +2,16 @@ import React from 'react';
 import { OTPublisher } from 'opentok-react';
 import CheckBox from './CheckBox';
 
+import {
+    Button,
+    Icon,
+    Segment
+} from 'semantic-ui-react'
+const styles = {
+    segment: {
+        width: '15em',
+    }
+}
 class Publisher extends React.Component {
     constructor(props) {
         super(props);
@@ -33,31 +43,33 @@ class Publisher extends React.Component {
             <div className="publisher">
                 <h1>You</h1>
 
-        {this.state.error ? <div id="error">{this.state.error}</div> : null}
+                {this.state.error ? <div id="error">{this.state.error}</div> : null}
+                <Segment style={styles.segment}>
+                    <OTPublisher
+                        properties={{
+                            publishAudio: this.state.audio,
+                            publishVideo: this.state.video,
+                            videoSource: this.state.videoSource === 'screen' ? 'screen' : undefined
+                        }}
+                        onError={this.onError}
+                    />
 
-                <OTPublisher
-                    properties={{
-                        publishAudio: this.state.audio,
-                        publishVideo: this.state.video,
-                        videoSource: this.state.videoSource === 'screen' ? 'screen' : undefined
-                    }}
-                    onError={this.onError}
-                />
+                    <CheckBox
+                        label="Share Your Screen"
+                        onChange={this.changeVideoSource}
+                    />
+                    <CheckBox
+                        label="Connect Your Voice"
+                        initialChecked={this.state.audio}
+                        onChange={this.setAudio}
+                    />
+                    <CheckBox
+                        label="Connect Your Video"
+                        initialChecked={this.state.video}
+                        onChange={this.setVideo}
+                    />
+                </Segment>
 
-                <CheckBox
-                    label="Share Your Screen"
-                    onChange={this.changeVideoSource}
-                />
-                <CheckBox
-                    label="Connect Your Voice"
-                    initialChecked={this.state.audio}
-                    onChange={this.setAudio}
-                />
-                <CheckBox
-                    label="Connect Your Video"
-                    initialChecked={this.state.video}
-                    onChange={this.setVideo}
-                />
 
             </div>
         );

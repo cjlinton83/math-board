@@ -1,68 +1,72 @@
-import React from 'react';
-import { OTSubscriber } from 'opentok-react';
-import CheckBox from './CheckBox';
-import {
-    Button,
-    Label,
-    Icon,
-    Segment
-} from 'semantic-ui-react'
+    import React from 'react';
+    import { OTSubscriber } from 'opentok-react';
+    import CheckBox from './CheckBox';
+    import {
+        Button,
+        Label,
+        Icon,
+        Segment
+    } from 'semantic-ui-react'
 
-const styles = {
-
-}
-
-class Subscriber extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            error: null,
-            audio: true,
-            video: true
-        };
+    const styles = {
+        segment: {
+            width: '25em',
+        }
     }
+    class Subscriber extends React.Component {
+        constructor(props) {
+            super(props);
 
-    setAudio = (audio) => {
-        this.setState({ audio });
-    }
+            this.state = {
+                error: null,
+                audio: true,
+                video: true
+            };
+        }
 
-    setVideo = (video) => {
-        this.setState({ video });
-    }
+        setAudio = (audio) => {
+            this.setState({ audio });
+        }
 
-    onError = (err) => {
-        this.setState({ error: `Failed to subscribe: ${err.message}` });
-    }
+        setVideo = (video) => {
+            this.setState({ video });
+        }
 
-    render() {
-        return (
-            <div className="subscriber">
-                <h1>Not You</h1>
-                {this.state.error ? <div id="error">{this.state.error}</div> : null}
-                <OTSubscriber
-                    properties={{
-                        subscribeToAudio: this.state.audio,
-                        subscribeToVideo: this.state.video
-                    }}
-                    onError={this.onError}
-                />
-                {/* <CheckBox
-                    label="Show Screen-Share "
-                    onChange={this.changeVideoSource}
-                /> */}
-                <CheckBox
-                    label="Connect Their Voice "
-                    initialChecked={this.state.audio}
-                    onChange={this.setAudio}
-                />
-                <CheckBox
-                    label="Show Their Video "
-                    initialChecked={this.state.video}
-                    onChange={this.setVideo}
-                />
-            </div>
-        );
+        onError = (err) => {
+            this.setState({ error: `Failed to subscribe: ${err.message}` });
+        }
+
+        render() {
+            return (
+                <div className="subscriber">
+                    <h1>Not You</h1>
+                    {this.state.error ? <div id="error">{this.state.error}</div> : null}
+                    <Segment>
+                        <OTSubscriber
+                            properties={{
+                                subscribeToAudio: this.state.audio,
+                                subscribeToVideo: this.state.video
+                            }}
+                            onError={this.onError}
+                        />
+                        {/* <CheckBox
+                        label="Show Screen-Share "
+                        onChange={this.changeVideoSource}
+                    /> */}
+                        <CheckBox
+                            label="Connect Their Voice "
+                            initialChecked={this.state.audio}
+                            onChange={this.setAudio}
+                        />
+                        <CheckBox
+                            label="Show Their Video "
+                            initialChecked={this.state.video}
+                            onChange={this.setVideo}
+                        />
+                    </Segment>
+
+                </div>
+            );
+        }
     }
-}
-export default Subscriber;
+    export default Subscriber;
