@@ -40,7 +40,7 @@
     "socket.io-client": "^2.3.0",
     "use-image": "^1.0.5",
     "uuid": "^3.4.0",
-    "validator": "^11.1.0"
+    "validator": "^13.7.0"
   },
   "scripts": {
     "start": "node server.js",
